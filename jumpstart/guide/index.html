@@ -1340,4 +1340,233 @@
           <div class="acc-icon blue">&#9881;</div>
           <div>
             <div class="acc-title">Identity &amp; Configuration Files</div>
-            <div class="acc-subtitle">How Cl
+            <div class="acc-subtitle">How Claude knows who you are and how to behave across sessions.</div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p>Claude uses a file called <strong>CLAUDE.md</strong> as its primary configuration and identity reference. This is where you define how Claude should behave, what it should know about you, and what rules it should follow across all sessions.</p>
+          <p>Other platforms (such as OpenAI) use separate files like <em>identity.md</em> and <em>soul.md</em> for similar purposes. Claude consolidates this into a single file, but you can create additional markdown files that CLAUDE.md then refers to &mdash; achieving the same modularity if you need it.</p>
+          <p>The recommended approach is to start by explaining these things conversationally in a Chat session. Tell Claude about your business, your preferences, your communication style. Then have Claude help you formalize those instructions into a permanent CLAUDE.md file.</p>
+          <p>Once written, these configurations apply across all three modes of Claude use: Chat, CoWork, and Code. One identity definition, three surfaces.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <div class="acc-left">
+          <div class="acc-icon warm">&#9670;</div>
+          <div>
+            <div class="acc-title">Folder Structure &amp; OneDrive Setup</div>
+            <div class="acc-subtitle">Where your AI workspace lives on your computer and why it matters.</div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p>Upon setup, choose a <strong>Microsoft OneDrive folder</strong> as the base and home location for all Claude work. This ensures your files are backed up, synced, and accessible from anywhere.</p>
+          <p>Inside your OneDrive, create the following structure:</p>
+
+          <div class="folder-tree">
+            <span class="folder">OneDrive/</span><br>
+            &nbsp;&nbsp;<span class="folder">Agentic/</span> <span class="comment">&larr; top-level container</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight folder">Claude/</span> <span class="comment">&larr; this is the folder you give to CoWork</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">Project Alpha CW/</span> <span class="comment">&larr; created by CoWork</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">Client Report CW/</span> <span class="comment">&larr; created by CoWork</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">...</span>
+          </div>
+
+          <p>When you start a new CoWork project, you provide the <strong>Claude/</strong> folder. CoWork then creates a subfolder inside it, named after your project. This keeps everything organized under one roof.</p>
+          <p><strong>Important details to be aware of:</strong></p>
+          <ul>
+            <li><strong>The first folder you add to a CoWork project cannot be removed.</strong> Only the second, third, and subsequent folders can be detached. Choose your initial folder carefully.</li>
+            <li><strong>Duplicate folder names are easy to create accidentally.</strong> If you are not careful about how you name and start your CoWork projects, you can end up with two folders of the same name. Pay attention during project setup.</li>
+            <li><strong>Additional folders can be attached selectively.</strong> Once your library of context grows, you can include specific input folders alongside the project folder &mdash; giving Claude exactly the context it needs for each engagement.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <div class="acc-left">
+          <div class="acc-icon navy">&#9783;</div>
+          <div>
+            <div class="acc-title">Context Backfilling Strategy</div>
+            <div class="acc-subtitle">How to front-load context so Claude produces high-quality work from the start.</div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p>The biggest mistake new users make is jumping straight into asking Claude to produce work without giving it any business context. The result is generic output that could have come from anyone.</p>
+          <p>Before your first real CoWork project, invest time in assembling your context library:</p>
+          <ul>
+            <li><strong>Collect existing documents.</strong> Proposals, past deliverables, internal processes, client briefs &mdash; anything that represents how your business thinks and operates.</li>
+            <li><strong>Transcribe voice notes and monologues.</strong> Tools like Notion, Otter, or even Claude itself can turn your spoken thoughts into structured text. These are some of the highest-value context you can provide.</li>
+            <li><strong>Write a business identity brief.</strong> Even a few paragraphs describing your company, your role, your clients, and your communication style will dramatically improve results.</li>
+            <li><strong>Start in Chat first.</strong> Have a conversation with Claude where you explain who you are and what you do. Then ask Claude to help you turn that conversation into a permanent CLAUDE.md configuration.</li>
+          </ul>
+          <p>The information you receive and the assets you build are of much higher quality when you actually onboard your specific business identity and context to Claude. This upfront investment pays dividends on every future session.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <div class="acc-left">
+          <div class="acc-icon green">&#10003;</div>
+          <div>
+            <div class="acc-title">Selective Context for Projects</div>
+            <div class="acc-subtitle">Not every project needs every document. Learn to curate what Claude sees.</div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p>Once your platform matures, you will have a growing collection of inputs (business documents, templates, past transcripts) and outputs (deliverables, analysis, generated assets). The power move is learning to <strong>selectively attach</strong> the right context to each project.</p>
+          <p>When you start a CoWork project, you select a folder. But you can add additional folders as context sources. This means you can maintain dedicated folders for different purposes:</p>
+          <ul>
+            <li><strong>Client-specific context</strong> &mdash; past engagements, communication history, and preferences for a particular client.</li>
+            <li><strong>Industry research</strong> &mdash; market analysis, competitor intelligence, and regulatory notes relevant to a sector.</li>
+            <li><strong>Templates and standards</strong> &mdash; your approved formats, brand guidelines, and reusable frameworks.</li>
+            <li><strong>Project archives</strong> &mdash; completed work that serves as reference for similar future engagements.</li>
+          </ul>
+          <p>By including only the folders relevant to the current project, you give Claude focused, high-signal context instead of dumping everything on it. This leads to faster, more accurate, and more relevant outputs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 5: GETTING STARTED STEPS -->
+<div class="container">
+  <div class="section">
+    <div class="section-label">Action Plan</div>
+    <h2 class="section-title">Your First Week</h2>
+    <div class="section-subtitle">A practical sequence to go from zero to productive. Each step builds on the last.</div>
+
+    <div class="step-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h4>Set Up OneDrive Structure</h4>
+        <p>Create your OneDrive &rarr; Agentic &rarr; Claude folder hierarchy. This is the permanent home for all your AI work.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h4>Subscribe Monthly</h4>
+        <p>Sign up for Anthropic's Claude platform with a monthly subscription. Stay flexible while the industry evolves.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h4>Start in Chat</h4>
+        <p>Have your first conversation. Tell Claude about your business, set the non-obsequious tone, and explore how it thinks.</p>
+      </div>
+    </div>
+    <div class="step-grid">
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <h4>Gather Your Context</h4>
+        <p>Collect documents, transcripts, notes, and identity materials. Build your context library before your first real project.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">5</div>
+        <h4>Create Your CLAUDE.md</h4>
+        <p>Work with Claude in Chat to formalize your identity and behavior preferences into a permanent configuration file.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">6</div>
+        <h4>Launch Your First CoWork</h4>
+        <p>Start a CoWork project, point it at your Claude folder, attach your context, and begin building real deliverables.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- OUTCOMES -->
+<div class="container">
+  <div class="section">
+    <div class="section-label">Outcomes</div>
+    <h2 class="section-title">What You Get When You Do This Right</h2>
+    <div class="section-subtitle">The payoff for investing in proper setup and context.</div>
+
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <div class="benefit-header"><h4>Honest Intelligence</h4></div>
+        <div class="benefit-body">
+          <p>An agent that tells you what you are missing, not what you want to hear. Private, direct, and optimized for your actual decisions.</p>
+          <p class="benefit-italic">The difference between a yes-man and an advisor.</p>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-header"><h4>Compounding Assets</h4></div>
+        <div class="benefit-body">
+          <p>Every output becomes a future input. Templates, analysis, and deliverables accumulate into a library that makes each project faster than the last.</p>
+          <p class="benefit-italic">Week six is dramatically more productive than week one.</p>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-header"><h4>Vendor Independence</h4></div>
+        <div class="benefit-body">
+          <p>Monthly subscriptions and a OneDrive-based file structure mean you are never locked in. If a better platform appears, your context library moves with you.</p>
+          <p class="benefit-italic">Your knowledge, your files, your terms.</p>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-header"><h4>Structured Growth</h4></div>
+        <div class="benefit-body">
+          <p>Chat teaches you to think with AI. CoWork teaches you to build with AI. Code is there when you are ready. Each step earned, not skipped.</p>
+          <p class="benefit-italic">Competence compounds faster than complexity.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <strong>Rational Root</strong> &middot; AI Jumpstart
+</footer>
+
+<script>
+function toggleKc(pill) {
+  const body = pill.querySelector('.kc-body');
+  const isOpen = pill.classList.contains('open');
+  document.querySelectorAll('.kc-pill').forEach(p => {
+    p.classList.remove('open');
+    p.querySelector('.kc-body').style.maxHeight = null;
+  });
+  if (!isOpen) {
+    pill.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+  }
+}
+function toggleAccordion(trigger) {
+  const body = trigger.nextElementSibling;
+  const isOpen = trigger.classList.contains('open');
+  document.querySelectorAll('.accordion-trigger').forEach(t => {
+    t.classList.remove('open');
+    t.nextElementSibling.classList.remove('open');
+    t.nextElementSibling.style.maxHeight = null;
+  });
+  if (!isOpen) {
+    trigger.classList.add('open');
+    body.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+  }
+}
+</script>
+</body>
+</html>
