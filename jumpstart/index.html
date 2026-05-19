@@ -1,18 +1,1653 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rational Root</title>
-  <style>
-    body { font-family: system-ui, -apple-system, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #0a0a0a; color: #e0e0e0; }
-    .container { text-align: center; }
-    h1 { font-size: 1.5rem; font-weight: 300; letter-spacing: 0.05em; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Jumpstart - Next Steps on the Contextual Ascent</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --navy: #002F2E;
+    --steel: #828883;
+    --accent: #028482;
+    --light-bg: #F4F1EA;
+    --card-bg: #FAF8F2;
+    --warm: #CAC80D;
+    --warm-light: #FAF8DD;
+    --dark-text: #15201A;
+    --mid-text: #4D544F;
+    --white: #FFFFFF;
+    --border: #E8E6E1;
+    --table-head: #014A49;
+    --shadow: 0 1px 2px rgba(0,0,0,0.04), 0 1px 1px rgba(0,0,0,0.02);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+    --focus-ring: 0 0 0 3px rgba(2,132,130,0.22);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, system-ui, -apple-system, sans-serif;
+    color: var(--dark-text);
+    background: var(--light-bg);
+    line-height: 1.6;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(160deg, #001A19 0%, #002F2E 40%, #014A49 100%);
+    color: white;
+    padding: 0;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(2,132,130,0.03) 3px,
+        rgba(2,132,130,0.03) 4px
+      );
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 40%;
+    height: 100%;
+    background: radial-gradient(ellipse at 80% 40%, rgba(2,132,130,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 48px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-badge img {
+    width: 40px;
+    height: 40px;
+    filter: drop-shadow(0 1px 4px rgba(0,0,0,0.3));
+  }
+  .hero-wordmark {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    color: #FAF8F2;
+    line-height: 1;
+  }
+  .hero-wordmark .r {
+    color: #CAC80D;
+  }
+  .hero-title-block {
+    text-align: right;
+  }
+  .hero-doc-title {
+    font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--warm);
+    line-height: 1;
+  }
+  .hero-doc-class {
+    font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(202,200,13,0.45);
+    margin-top: 4px;
+  }
+  .hero-body {
+    padding: 48px 48px 56px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+  }
+  .hero-body-left {
+    flex: 1;
+    min-width: 0;
+  }
+  .hero-stats {
+    flex-shrink: 0;
+    width: 220px;
+    background: rgba(244,241,234,0.06);
+    border: 1px solid rgba(244,241,234,0.10);
+    border-radius: 6px;
+    padding: 20px;
+    margin-top: 40px;
+  }
+  .hero-stat-row {
+    padding: 10px 0;
+  }
+  .hero-stat-row:not(:last-child) {
+    border-bottom: 1px solid rgba(244,241,234,0.08);
+  }
+  .hero-stat-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 3px;
+  }
+  .hero-stat-value {
+    font-size: 13px;
+    color: rgba(244,241,234,0.75);
+    font-weight: 500;
+  }
+  .hero-rule {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(202,200,13,0.4) 0%, rgba(2,132,130,0.2) 60%, transparent 100%);
+    margin: 0 0 40px 0;
+  }
+  .hero h1 {
+    font-size: 44px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+    position: relative;
+    color: #FAF8F2;
+    line-height: 1.1;
+  }
+  .hero-tagline {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+    padding: 8px 20px;
+    border: 1px solid rgba(202,200,13,0.3);
+    border-radius: 4px;
+    background: rgba(202,200,13,0.06);
+  }
+  .hero-tagline em {
+    font-style: normal;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .hero p {
+    font-size: 18px;
+    color: rgba(244,241,234,0.55);
+    position: relative;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .hero-eyes {
+    font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(202,200,13,0.18);
+    position: absolute;
+    bottom: 16px;
+    right: 48px;
+    z-index: 1;
+  }
+  .hero-divider { display: none; }
+
+  /* ── ORIENTATION OVERLAY ── */
+  .orient-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,26,25,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+  }
+  .orient-overlay.dismissed {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .orient-card {
+    background: linear-gradient(160deg, #002F2E, #014A49);
+    border: 1px solid rgba(202,200,13,0.2);
+    border-radius: 8px;
+    max-width: 720px;
+    width: 100%;
+    padding: 48px 44px 40px;
+    position: relative;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+  }
+  .orient-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(202,200,13,0.5);
+    margin-bottom: 20px;
+  }
+  .orient-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #FAF8F2;
+    letter-spacing: -0.01em;
+    margin-bottom: 32px;
+    line-height: 1.2;
+  }
+  .orient-steps {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 36px;
+  }
+  .orient-step {
+    flex: 1;
+    background: rgba(244,241,234,0.04);
+    border: 1px solid rgba(244,241,234,0.08);
+    border-radius: 6px;
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .orient-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--warm);
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+  .orient-step-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #FAF8F2;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .orient-step-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: rgba(244,241,234,0.5);
+    line-height: 1.5;
+  }
+  .orient-dismiss {
+    display: block;
+    margin: 0 auto;
+    background: transparent;
+    border: 1px solid rgba(202,200,13,0.35);
+    color: var(--warm);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 12px 36px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .orient-dismiss:hover {
+    background: var(--warm);
+    color: #002F2E;
+  }
+  @media (max-width: 600px) {
+    .orient-steps { flex-direction: column; }
+    .orient-card { padding: 32px 24px 28px; }
+    .orient-title { font-size: 22px; }
+  }
+
+  /* ── KEY CONCEPTS (inline pills) ── */
+  .key-concepts {
+    display: flex;
+    gap: 12px;
+    padding: 28px 0 0;
+  }
+  .kc-pill {
+    flex: 1;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .kc-pill:hover { box-shadow: var(--shadow-hover); }
+  .kc-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+  }
+  .kc-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--accent);
+    background: rgba(2,132,130,0.08);
+    padding: 2px 7px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .kc-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark-text);
+    flex: 1;
+  }
+  .kc-chevron {
+    font-size: 12px;
+    color: var(--steel);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .kc-pill.open .kc-chevron { transform: rotate(180deg); }
+  .kc-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+  .kc-body-inner {
+    padding: 0 16px 14px;
+    font-size: 13px;
+    color: var(--mid-text);
+    line-height: 1.55;
+  }
+  @media (max-width: 600px) {
+    .key-concepts { flex-direction: column; }
+  }
+
+  /* ── CONTAINER ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    padding: 60px 0;
+  }
+  .section-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 16px;
+  }
+  .section-subtitle {
+    font-size: 17px;
+    color: var(--mid-text);
+    margin-bottom: 36px;
+    line-height: 1.7;
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    background: var(--white);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    margin: -30px 24px 40px;
+    position: relative;
+    z-index: 2;
+  }
+  .stat-item {
+    padding: 24px 20px;
+    border-bottom: 3px solid var(--accent);
+    text-align: center;
+  }
+  .stat-item:not(:last-child) {
+    border-right: 1px solid var(--border);
+  }
+  .stat-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .stat-value {
+    font-size: 14px;
+    color: var(--dark-text);
+    font-weight: 500;
+  }
+
+  /* ── SPLIT PANELS ── */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+  .split-aligned {
+    align-items: stretch;
+  }
+  .split-aligned .split-panel {
+    display: flex;
+    flex-direction: column;
+  }
+  .split-panel {
+    background: var(--white);
+    border-radius: 6px;
+    padding: 32px;
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--border);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .split-panel:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+  }
+  .split-panel.before { border-top-color: var(--warm); }
+  .split-panel.after { border-top-color: var(--accent); }
+  .panel-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  .panel-tag.before-tag { background: var(--warm-light); color: var(--warm); }
+  .panel-tag.after-tag { background: #E0F0EF; color: var(--accent); }
+  .panel-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+  .panel-desc {
+    font-size: 14px;
+    color: var(--mid-text);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  /* ── SUB-LABELS ── */
+  .sub-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 16px 0 8px;
+  }
+  .sub-label.warm { color: var(--warm); }
+  .sub-label.blue { color: var(--accent); }
+
+  /* ── INFO CARDS ── */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .info-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 14px;
+    text-align: center;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .info-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+  }
+  .info-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .info-card p {
+    font-size: 12px;
+    color: var(--mid-text);
+    line-height: 1.5;
+  }
+  .info-card.warm-card {
+    background: var(--warm-light);
+    border-color: #F1EE9C;
+  }
+  .info-card.blue-card {
+    background: var(--white);
+    border-color: var(--border);
+  }
+
+  /* ── THREE-MODE CARDS ── */
+  .mode-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 24px 0;
+  }
+  .mode-card {
+    background: var(--white);
+    border-radius: 6px;
+    padding: 28px 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--border);
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+  }
+  .mode-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+  }
+  .mode-card.active { border-top-color: var(--accent); }
+  .mode-card.next { border-top-color: var(--warm); }
+  .mode-card.later { border-top-color: var(--steel); opacity: 0.7; }
+  .mode-card .mode-number {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    line-height: 28px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .mode-card.active .mode-number { background: #E0F0EF; color: var(--accent); }
+  .mode-card.next .mode-number { background: var(--warm-light); color: var(--warm); }
+  .mode-card.later .mode-number { background: var(--light-bg); color: var(--steel); }
+  .mode-card h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .mode-card .mode-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .mode-card.active .mode-label { color: var(--accent); }
+  .mode-card.next .mode-label { color: var(--warm); }
+  .mode-card.later .mode-label { color: var(--steel); }
+  .mode-card p {
+    font-size: 13px;
+    color: var(--mid-text);
+    line-height: 1.6;
+  }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 32px 0;
+    flex-wrap: wrap;
+  }
+  .flow-box {
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    padding: 20px 24px;
+    text-align: center;
+    min-width: 180px;
+    box-shadow: var(--shadow);
+  }
+  .flow-box h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .flow-box p {
+    font-size: 12px;
+    color: var(--mid-text);
+    line-height: 1.4;
+  }
+  .flow-box.input-box { border-color: var(--accent); background: #E0F0EF; }
+  .flow-box.process-box { border-color: var(--navy); background: #E8E6E1; }
+  .flow-box.output-box { border-color: var(--accent); background: var(--white); }
+  .flow-arrow {
+    font-size: 24px;
+    color: var(--steel);
+    padding: 0 12px;
+    flex-shrink: 0;
+  }
+  .flow-return {
+    width: 100%;
+    margin-top: 16px;
+    padding: 14px 28px;
+    background: var(--navy);
+    border-radius: 100px;
+    text-align: center;
+    font-size: 13px;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    position: relative;
+  }
+  .flow-return::before {
+    content: "\2190";
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+  }
+  .flow-return::after {
+    content: "\2190";
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%) scaleX(-1);
+    font-size: 18px;
+  }
+
+  /* ── GAP BLOCK ── */
+  .gap-block {
+    background: linear-gradient(135deg, #002F2E 0%, #014A49 50%, #028482 100%);
+    border-radius: 6px;
+    padding: 32px;
+    color: white;
+    margin: 20px 0;
+  }
+  .gap-block h3 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .gap-block .gap-sub {
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  .symptom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .symptom-card {
+    background: rgba(255,255,255,0.95);
+    border-radius: 6px;
+    padding: 14px;
+    text-align: center;
+  }
+  .symptom-card p {
+    font-size: 12px;
+    color: var(--dark-text);
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  /* ── BRAIN BLOCK ── */
+  .brain-block {
+    background: linear-gradient(135deg, #002F2E 0%, #014A49 100%);
+    border-radius: 6px;
+    padding: 32px;
+    color: white;
+    margin: 20px 0;
+  }
+  .brain-block h3 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .brain-block .brain-sub {
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  /* ── BANNERS ── */
+  .banner {
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-top: 24px;
+    text-align: center;
+  }
+  .banner h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .banner p {
+    font-size: 13px;
+    color: var(--mid-text);
+    line-height: 1.5;
+  }
+  .banner.warm-banner {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+  }
+  .banner.warm-banner .banner-em { color: var(--accent); font-weight: 700; font-style: italic; }
+  .banner.blue-banner {
+    background: var(--card-bg);
+    border: 1px dashed var(--steel);
+  }
+  .banner.blue-banner .banner-em { color: var(--accent); font-style: italic; }
+
+  /* ── ACCORDIONS ── */
+  .accordion { margin-bottom: 12px; }
+  .accordion-trigger {
+    width: 100%;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px 24px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.15s, box-shadow 0.15s;
+    box-shadow: var(--shadow);
+    font-family: inherit;
+  }
+  .accordion-trigger:hover {
+    background: var(--card-bg);
+    box-shadow: var(--shadow-hover);
+  }
+  .accordion-trigger.open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-color: transparent;
+    background: var(--white);
+  }
+  .accordion-trigger .acc-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .acc-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .acc-icon.blue { background: #E0F0EF; color: var(--accent); }
+  .acc-icon.navy { background: #E8E6E1; color: var(--navy); }
+  .acc-icon.warm { background: var(--warm-light); color: var(--warm); }
+  .acc-icon.green { background: #E8F5E9; color: #388E3C; }
+  .acc-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .acc-subtitle {
+    font-size: 13px;
+    color: var(--mid-text);
+    margin-top: 2px;
+  }
+  .acc-chevron {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.25s ease;
+    color: var(--steel);
+    flex-shrink: 0;
+  }
+  .accordion-trigger.open .acc-chevron {
+    transform: rotate(180deg);
+  }
+  .accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    box-shadow: var(--shadow);
+  }
+  .accordion-content {
+    padding: 24px;
+  }
+  .accordion-content p {
+    font-size: 15px;
+    color: var(--dark-text);
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+  .accordion-content ul {
+    margin: 12px 0;
+    padding-left: 20px;
+  }
+  .accordion-content li {
+    font-size: 14px;
+    color: var(--dark-text);
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+  .accordion-content li strong {
+    color: var(--navy);
+  }
+
+  /* ── BENEFIT CARDS ── */
+  .benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 32px;
+  }
+  .benefit-card {
+    background: var(--white);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .benefit-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-3px);
+  }
+  .benefit-header {
+    background: var(--table-head);
+    padding: 16px 20px;
+  }
+  .benefit-header h4 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: white;
+  }
+  .benefit-body {
+    padding: 20px;
+  }
+  .benefit-body p {
+    font-size: 13px;
+    color: var(--dark-text);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .benefit-body .benefit-italic {
+    font-style: italic;
+    color: var(--accent);
+    font-size: 13px;
+    line-height: 1.5;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+    margin-bottom: 0;
+  }
+
+  /* ── FOLDER TREE ── */
+  .folder-tree {
+    background: var(--navy);
+    border-radius: 6px;
+    padding: 28px 32px;
+    font-family: 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 14px;
+    line-height: 2;
+    color: var(--steel);
+    margin: 24px 0;
+    overflow-x: auto;
+  }
+  .folder-tree .folder { color: var(--warm); font-weight: 700; }
+  .folder-tree .file { color: #B4DDDC; }
+  .folder-tree .comment { color: #5BB8B7; font-style: italic; }
+  .folder-tree .highlight { color: #FFFFFF; font-weight: 700; }
+
+  /* ── STEP CARDS ── */
+  .step-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 24px 0;
+  }
+  .step-card {
+    background: var(--white);
+    border-radius: 6px;
+    padding: 24px 20px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .step-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+  }
+  .step-card .step-num {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #E0F0EF;
+    color: var(--accent);
+    line-height: 28px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .step-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .step-card p {
+    font-size: 13px;
+    color: var(--mid-text);
+    line-height: 1.6;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--navy);
+    color: var(--steel);
+    text-align: center;
+    padding: 40px 24px;
+    font-size: 13px;
+  }
+  .footer strong { color: white; }
+
+  /* ── CODE ── */
+  code { font-family: 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace; font-size: 0.9em; background: var(--card-bg); padding: 2px 5px; border-radius: 3px; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .benefit-grid { grid-template-columns: repeat(2, 1fr); }
+    .mode-grid { grid-template-columns: 1fr; }
+    .step-grid { grid-template-columns: 1fr; }
+    .info-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    .split { grid-template-columns: 1fr; }
+    .flow-diagram { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); padding: 4px 0; }
+  }
+  @media (max-width: 600px) {
+    .benefit-grid { grid-template-columns: 1fr; }
+    .symptom-grid { grid-template-columns: 1fr; }
+    .info-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 28px; }
+    .hero-body {
+      flex-direction: column;
+      padding: 32px 24px 40px;
+      gap: 24px;
+    }
+    .hero-stats {
+      width: 100%;
+      margin-top: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 0;
+    }
+    .hero-stat-row {
+      padding: 12px 14px;
+      border-bottom: none !important;
+    }
+    .hero-stat-row:nth-child(odd) {
+      border-right: 1px solid rgba(244,241,234,0.08);
+    }
+    .hero-stat-row:nth-child(1),
+    .hero-stat-row:nth-child(2) {
+      border-bottom: 1px solid rgba(244,241,234,0.08) !important;
+    }
+    .hero-topbar {
+      padding: 20px 24px 0;
+    }
+    .hero-tagline {
+      font-size: 12px;
+      padding: 6px 14px;
+    }
+    /* Overlay mobile fixes */
+    .orient-overlay {
+      align-items: flex-start;
+      padding: 16px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .orient-card {
+      padding: 28px 20px 24px;
+      margin: auto 0;
+    }
+    .orient-title {
+      font-size: 20px;
+    }
+    .orient-step {
+      padding: 16px 14px;
+    }
+    .orient-step-title {
+      font-size: 14px;
+    }
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>Rational Root</h1>
+
+<!-- ORIENTATION OVERLAY -->
+<div class="orient-overlay" id="orientOverlay">
+  <div class="orient-card">
+    <div class="orient-label">A shift is happening</div>
+    <div class="orient-title">AI is moving fast.<br>The way we work needs to evolve with it.</div>
+    <div class="orient-steps">
+      <div class="orient-step">
+        <div class="orient-num">The gap</div>
+        <div class="orient-step-title">Chatbots are the starting line, not the finish</div>
+      </div>
+      <div class="orient-step">
+        <div class="orient-num">The leap</div>
+        <div class="orient-step-title">A massive acceleration in productivity</div>
+      </div>
+      <div class="orient-step">
+        <div class="orient-num">The catch</div>
+        <div class="orient-step-title">It only works if you tailor the approach</div>
+      </div>
+    </div>
+    <button class="orient-dismiss" onclick="document.getElementById('orientOverlay').classList.add('dismissed')">Get Started &rarr;</button>
   </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-topbar">
+    <div class="hero-badge">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH4AAACACAYAAADNu93hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAAB3RJTUUH6gUPDgcx/4m2lQAAIXRJREFUeNrtfXlwXOWV7++7tzd1t1pq7YtlybItGy+AMZjVBDshwRAImwlLTZg3SZFMZt68LC+vJjVJJpNUhiwvSc3kVXiZJEwWZkJicHBCIMQ2BGIDMcEsXsCLbGzJ2lutVnert/t95/3Rd/nu7duy51UQyNxT1WV163a33Oc75/zO7ywNeOKJJ5544oknnnjiiSeeeOKJJ5544oknnnjiiSeeeOKJJ5544oknnnjiiSeeeOKJJ2ci7O34RxERtr+yD42xWPDk6OjisZn0OdP5fCfnPK4QIgTipZI2GfL5i7WRyFhdpKa/ubb2+CVLl02OpFK8t6UZjDFPu/NF8dOZGdRGathvX32p4+TE2LUjk6nrp3OFC/Ncay4K7iNBIDJuAowAVVG4X1EyAcZOhPy+A83xuhdbY/E/LG1ecHDdiiVZIiJFUTxNvx0VT0T47f6X0VBbG3vp6PHNp5KT/30yl1uVLxRVLgRICNu18k2I8o2Ig4Hg9/kQ9gWS4WDw5aZYdOei1tYdK7sW7L/l8/+YPfSTn8CnqJ7W3w6Kn8jncf/jj2NJR3vvsfHxLw1MJW+bKZT8ggBBAhC8QtlEBAAQQuj3Aa7/DN0bEBF8CkPU70vGo9EX2uLxny9tW/DYBy69ZDQ5naaGupin+LdKsoU8PvfAf+DSc5add3B4+L6xVObSAucABKisWRBQvhGBTEXLFm89JoxDQQTBBQQJCCGgAAj5VV4fjuzrrI9vOae3+5e3Xrr+8HA2zTuiMU/xcympfAG/eG43GqPRc/cPnvzRqVR6TVlZHCDYLNvN4oXjEFS9L0T5IJAAERBQFbTEagc6mpq2LG5u++Ft6zccemNshPd1dXqKnwv59SsvIxoKtT//+us/PjmZvFrjAgQBAtkUbyjxdAfAuMa8T2VsUPYSKINBQeDEQMQRUhQ0RGsHO5uaHlq9qPf+zVeuP3BibFz0tLZ4in+zZM+xfly0qNf3L7/97T/3T4x/Jl/SygqCEaOdMfz0N9sBMO5DmOEBQj9WwjpYQgj4FQXt8bqBzvqG+/u6e35858aNbyRyOWoKh89qxc85xCUi/GjndgwkJ68/OjrylXSxFGSkR3IHeJvN1bvGeAngwXhN433l0278ThA0QUhmM3Wj06l3jSWTm/YdPcJUBcf3Fmdmhl58CV/+0pc8i/9zyBMH9iEaCjU9tW//lpPJyavKuXlZNW5KNSy/mgdw9QpCB4JwzwiYkJ9bPggCBOIC4aCfL2hofLa3o/Nr77/iip2D42P5q9esPesU75vLNxtMpfHtX23F8vbOG8YzmSuEYKb1VUvZnP86PYB8X7Z0GSvYzF6Q/TEICAYzDczkCuqhoaH1I8mpNYMjI1tX9vZ+i4j27R8cEKu7FnoW//8jOw8eRF24pu6xvS/+cnBqekNZT9ymwNni+plYPiRrBrNfB2EPJ0IYaaOeAgpN/z3AOcHHgOa62EBPa9t31i075/7Hn38+8W+f/XucDUzgnP0PiAivDZzEgYGBi5P53DrLvdut2Pmcah7AeY1h0dZ9Om1KaMZ701NYroExQolzDE1Mdr105Mi9j7/w/MN9i7re+8qxY75tu3d7ij9TeW04gb957/uU4anU5pl8KSKEqJqmGb+r5tJdb8Jg7HQ0b/udMFigirBg5//LJJAgAkiUDw8jZAtF9dDAwLt27X3pwR9u3fr11PT0IgCYKRU9V3862fbHPfAzpWvXsf7tY9nMMhLcZrVnmrpVI2oMF39aQCcrXlgFH4PmlVNC41BA5wOEIAR9PnQ2xA8sX9h978ZLL3/4xPBQ/s73vtcDd9WkPzGKWE14XbaY74XOohlJ1hlZdJXDYTlnXYGo/nyTApaUDhM7kFUMIoKcYgo97jMA+UIRR4dGVk6kUt8bGh+/6sKVq78KoH8yNY35xP/Piat/8Y0T+NS11yORzl6e1zS/nFm7KVH2BLOheMtt6wcCLlhAduvyfVjPM68znkcEkIUZnPEfAJKZbOTV48c+8tvndm37/P/5zu39gyeDD+/c4SlelulsBs8dOtSQyeXWa5yDw3K5Z0rKVLd6w01zM4bL10DILt2J7oWeVdivZwQHIWThAzAGxgCFMRQ1jmPDwyuf3b/vBz/Y+tC/TiaTi9HXg+OnTnmKB4DBZBInk8klM1ppsTA++Flc/Jnm7RWPwwXxOz2Ikx9wWLszVJTpAJfQor82I2Aqk4283N9/zxPPPbv1c3/7qQ8kMqnAw0/t9BR/eGAAiXR61UyxEC9boNVY8V/h46HHcZjuXVRH+E5LF048QFL93qriweUw2Tgg/X0BKn94SvlWLGroHx4599l9r/zk+w/+/Gu5mVzXpr/5mJm5vOMUf2x6Gl++4w5k8/nzyxU4K9ZWs+rqlm186MKM0ZDdtP4cZoAzSZGQXLyZqtk8gEHkwNYDYGMCYb0umTih/A9jDAxAYjode6X/6Cd+9dTOrZesXH3dWGrGt2PPi+88xSeSSYxnMzWZXO4cLqor2qnsM/EEzteZ7Tmzva/h4u3gTvIcxqEQ5Ao+5bxYYQy5QgmHTg5c+Ie9Lz3wxe9880tDIydbP/WNryKbz79z0rnRZAITU5PxPNcWksmdE4gwKy/v5uZhS79ceHgHSSNbbdXDYEP9usXrnoG5KFhmGiWQ78D8AAPDWDJZn86k/z4xMXnp+eec84VwMLj71cOHxLl9y95yxb/pZdl3f/CDyBWKywYmkx/Pa1qoTNycueXb74tZUjrDDdtMUgJwwmHNwnT/TDo45AgPhrHbCkCOg8rIzQMwgAhFrcQS0+meRHLymn2HDonG+viBq669tvDrLVvOcoufnkIsHOkpaFpUSPGUSFRYfXW3717Bk69hbq9hZhAujztyfaNrR67omR5D7wxiLn8Dc2kTg5RNMMYgBOHUxET79Ez2a4MjI2svWrX6nwAcPnTiDSzr7jk7Y/zJxARKnHdpQqioUog5HWsHCBuJ4kbSEKqXaB2w3E7K2PJ7R2rneI3K1BCV6Z/zbwQz3Ukqk/Ed6O+/c/vuXds++61v3lHMlwLbdj559il+rMix5+B+pFKpJs41h+VhVpJGCJKImTKaNwkV+aAIKy5XFGDM57g3a8h8ghsWgMTiMechMRQsKp9j+9fu/FHSSjg+PLT8mRde+P63f/zDeyfTU22f/tq9KHcXnyWKT0xO4sVv/IsPUHqFqLTKaojbzLZdSraVhI2b6wbsQJKqUq92vr+KEFzf3+0ZFqh0oEGHTExNRfYefO2Tv9qx8z/j8YZLA4rCnnj22bMjxue5hqHpbLCo8XYhBIhVj9MVqZg4DUkjpVyoQvRUu9500zK161K2JQegs7F5VNnUYSpZonrL4NDKGsxyKGPI5grs8BsnNgjOH/rW/d//+HMvvrjtrFD8VCaNQiHvKwktLCDABDst7VpRKHGJ6aaiKpRuT+nMSpv0mszNDRt9d9I1ZBBEjr+VuSB/8z2kv80EfVLKqBBDuVsA8KkqGmojmeb6+J4F7R3bo9GaQy2tjXNm8W9qPf6Jl18BI7Q//tLep0ZmMstUMHCuzdo+LXfKCm41TFYcFp36dVoinPV16Roj3ato8pAPkG6xVfsARRXP46j9O/9/EASmMASDftEQqR3samnZuXhRz4NLuvt2/WLb92Z+9I1/rGOCFbnguXjjefPb4rO5PBhRDRciAgEQo1nQvLARNeRsj3Zxs87HXT2JLU7D9Xk2F2xau3sKWOmVZin/6tf5FAV10UgmHou+0t3RsWVJd++jV6275fiy7qOB8fH951/Ut+7akycfuLYm2P39kbFnv0fFcbBA8/xVfDqfAxEFi5wHQUI3LKfFoKIDxjwIbqmSELac3ZmmGeVZOKhX1wKMo+5Obm67CisIF3IJRGCClad4QKgJBNAYiw61tzQ/3tOx8GctseY92x67Pf2Fj29vT6Xuv/vIsYGbioXhK0vFqTpNK0HE/HuvuOIBUOnr8xzc5fNQFSUsSPhJb2GpRMdV6Nlqsd2VtTOfUYG1yW1YQ1QCOhvTR6gkZKqheem5AoBPYYiFornWhvjezra2bUt6eh67acP1r7U1zfiHTz15wdWX3PuBU4OPXFcsjS3nPO0ToggSgCAFXBTiROTLZfZp81rxTGHw+dRaxligXLuuTsnOZk0mUSKMlijXfMs15sKFlyeXyp15ZGiWSqGeYjKTwgU4lcuzNYEQ1ddGB5vr63Z2trRuuWD12l0ffN/GdDr1fMvk9EN3HTl+/LaZzMDlXEvEhSjAmAhmYCBW9nqalq8HhL8kivNb8elcDgG/P8wF+d1ao0jud6NKd+zk4d26ZqG7d3kax2ykhB24uXXVmqVcwEYNV8vnmVT8URhDXSSS62hsermpofHXPR1dD119+fXHVi/NK0Onnl5z9MjXby3y0U353MiykjblJ16CyQaR4wYCiEdLhX6/glJuXiteExwKVxgJweBw4afrtnHj4WFL22Six52urezIwayUsetrSdcZbdcBv4/isdpEe3PTM91tHT9at/L831+3YX0mNbWrNZV65LZDr79xa64w8C5emmgknocAL9s2U6y/nQAQkzAOA2O8plhK+cseYR4rvlAsgojABa8az6kKxVkdRFUeoLJhuyjd0WFDLsgfVcOLdF8IKIwhEgqVmuvrXmuLxx/sam1/dN2aS19/90U9NDK8fWX/sW9tLhZP3ZjPj/Rp2rSfqAizNwvMyv8llCBsWQrAuVabzabDRKXE/I7xjIExBkKZuLBVt4yLhKUoN9DGyB1h27MCZjVJSNczsj5cO49qB2YMkncwRqr1vymoqojXxhJtzc3PtDY2/WLpwt4nP3zT9WP5/J54Irn3fYf6t24u5IffVyqNtwo+AwhuNmRaB5AZ/3vpcEl9PcTKffuch7ViNlKGifMa1RcgOLdIG0ectj2G6l7A1njhyPuNLhnL2vW2LGHv5IWNfTNStsrGDkECChhqwyGtpT5+sLmufuvCtvZHr9lwzb7zejv52OgjfcePf/Mjx4//7CZNS6wqalMhEkWLC2CKo6xbGcKEuawBOqIvH2AhtJAmimEQn9+KByN7jx0q0yKj0GK3aAvJw6XObePj5WINyLWoUoHyAZPFs7wGEPD5UBcOTTREa59d2NH+8Pkrzn3iP395/ejX/+7pulT2qU1H+0/eWiwOb9D4WAcvZRiIg0EBoILAZy3cGCSp/H4maWhN9PgVlUUEn+cWL0AQzDzWjhjv3ihJtqZIZ4kUukUL15q7a84tqEIZRMy0bsYYojVB3hCNvdHW1LSlu7XtweWLVrx+w1XrSsnk75ZeuuJrHzs18otNmjZ5HtemQoKKICHAGEBQ9ffhOgB14xrsjZv6fxsEfU2bsDp8hODgYgZ8voM7KHqMJ0evmo04ma106iiiztKswaoARBdGB0QCAb+K+ppIIl5b93RXW+tjizt7dvzVjdefzKT2RPPFIxsGTj29OZcfek+pNNEltDQzQwjJJQ6pQ9cIHqZ1S9cYqaZwkIpCyjT09W6ca4zz0vxWPDMICiqvHmPOGA23iVer717o+bobdy43U1K1VFFG/RBQiKEmEBANsdojXa2tW7s7O7cubO599aaNF/Nk6oneoeHvf7KQe+PGkja6VhPpsBA5gHQXzQAZc83WS2Dji0zsAHP23rhfruRaVUEQMS64onFtfivez1T4FRUAgyCCYmy1YlUmZ8ySqMvsG6QWLGd3jCNegwCmLzsSRAgoPsTCkVRzfd0f2xtaftnbtfDRF5786ODH/vp3sen0vg0Dg8/cWiqNXaOVJjo4TytEJRApYKYrF2DCvVGDqjCJMrtLZuizFF1Wejl/h56ZlKeMBCNB81vxPlWFT1WttiWXBgk39+/m9s1WLbi1XcNsyjQGIxgDIoEQb4hGT7Q0NDzR3dr6s5VLl+/ZdMm64vT0E13XXfaFe4YTv7yzVBy+iGuTYSYKZSWAwWhMst6DmXRt9QUObiHAUDKVFSucbWdlYCcIIE4QgpgQpAg+z1G9whhUpljwlc3eQw9XXOyW4qEC9Bmpm19VEYuGpxui0d2dTS1b+7p7t9+2cdPJQOhIJJl89crR0edvLBQHry6WEr1CZFQhuP4SiunLK9P92bZ1OJlBOLqH7fGfhOHi5VhvpK1c4Zz7tfmu+JpACMGAnxgYcRJQUCUuCjvjRg4ERCQcFCeZnl/obrHGH6D6SHSgrbHhNz1tLQ8uW7hiz/uvWFtIZXZ2JLM/+LBIjd9RLA1dzItTEUJBqs8zF3xw+qVL5ZvlCSqLO/rwjZAOqv73mrFdGNeRhRDLbM48j/E+FT5VLTIQB8qFGjdO3S11Y85JGyMWCisXVxUVdcGabHM89qfOxqZtC9s6H1218oajFy0+HJxKvnzRqaGnb+E0dg3nySVcy6hCFHUWTWYRyD45K7VlnLb12wZB5CqeC3njBk9syB4QnEgQUdUi0bxx9YoCQTQB0AxAIZmoYdZuggrihpFbCChbCANDMBAQ8UjkREus/sm2huYtq7oX7/rAxsuyxcKeBdPT//GRsdGTNxa1scu5NllHoij10CmuI8+2sitQxaU7s4jKBg75MAghKVZ372Y/pvS4Feuhb91gYi421Ly5Fg8FxCnPAK1c+tStFkLfLWvkt2TbSS+MfXTGeRACiqIgHg1nm2LxPY11tVsXNLf95j2X3fjG8qbXA6nM4TXDQ9+9OZF89P3F0kSfpqVVIk3PIKQ5CWYfl670PrCIGH2zruUX9J+YzCnA7NgR8tm1LVNCBaiTO5EshE/lXg6mcMbU+a34WDgCIuKqonC5eGIOJ8LRW0dkNiXomkIwEKRYbfBUS21se1db68+WdvU+e/P6y7LpmR2dxcJPPzSUGLmJ87EruTYZJ57X+/pYpUWicuCxAlBKSifnKJVLizXgpIXtShaSVdviurCuEwYwFeUhbAamKUyZ34oPBoMAUZFBKcg8u7NkKhdqIBhUVUU45Ms3R2tf6mhu3toSb/rV5StvOHre0gH/dOblNaOj37l5KvnMDUSTi4VI+7i+mFCfU6zMBDDLNky4DHIIk7ep2pRBLvV8G/VgungyXbxwuHdbODBOHBjNxb6KN3lokuBXWBYQadMOqVygFFIsF3o/U43Ph7pwdKilvv7J5mj9z5e0LfxDMr0l9d+uu6sjn3/wrpGR4Vs5ja0nMRkXPGd6C2amS3Cp2wudmxcVll/p6plk8eRO0hi+Xur1swM9Z64u7DyEzeWTBA7Lp031BYgwz8FduKYGYZ9PU1W1aKwNlztfOQgqA+qDoXxzXexAe33D1o7m1kfWr33XoWVNaWVq5oWVRe2cm8cnnrgJlFjOtbSPoFlRV7bwCncMe9VPrt6BuXMHzumZKnm7s/ZguXKp1CqkdE1AKh/rvyO4/I4JIpTYfLf4WCyGxkiUq6paMFyxIIJChIDPh/pweKSltu7Jjqamh1YtWvr0posvmEwln2rgtO2WiamxzUU+dqUQky2k5ctQS7GsslqsdqNNne3vbi1Wtl592Js/3JTuHjLkEqvD5duIHdiIHEEGOlQ4SOTnYlfum4vqFRVLW5vzQUUdY4wBjKGuJlhqiEZfb6mr/fnC1s5HLly0+tCa5SFMpf64bHTi3/42k3/mRuJTKwmZAFHJjN02F4vZd+AZ2mNGd44JwtxDgnMenshtwLOSpHFj62RLt4M3Y12qE9nrtK0AADXvV+vyNN8JnKZ4HIyx0j898NOnsoV8W1D1DXe3tDy8tGvp9psuu2A8m3khrvFd101MjmwuFMfeTZRqBeUYQUg9FXqyxGCLqW6W7myclP04OTn/qnm8ezew7GmcHL1R37fIGGaBugoPYA8LVirHAKjTAX9sWoji/FZ8T30MLxw7ilKpcB8o+MN8vraw4TyOTPbAuVNTP/m7fGlwE9cmVjDKhgglMJ1gcRZmKporXX6uVL696CMPc5yOlQM5001UmelnkjLJRsdabt8iZ4STpxfGc/VhUsWXqI8vyOTzE/Md1QNrF/owkdpbqgksqJ3JPX/1WCKxGTR5NS8lmwVl9bo8g63lkZilcFZdubO6fAf5YluCAEfBXFjxndkoWDKbPe19/GQrvNjctpSry3y8M/4LAaknUG8OZYHp2vrlhfzY82+64t90FJHXOO759G3I5k58olDat6WYP3hnqTDYLChj60WTy7Oz9bq7Nz5UW0MC2PC5s226MrerwAmS+4BD/zZULmQkL2RGznpcuGzlKD8uyqBXCSUBaNFIbP4rXlF9+O699yLgjzykKo1bmRIsECMbATLbFxGAaNbGh9MdBiLHWBTONFTMthffSci4oHVBFcUYs+FCoCIkgPnh80cG1l7MeCjUPP8VH/J3o6P9s/D7o6821G36q2BozadUX+cghE+3H3tZ1KyaGdsnZ1Hw6SxeSuyM3h8XLr1ayqaHH6kt34bKzd06QorvllWblKywQJ8ZEkTlKJcCFarq6/9fn7wNiq9l/ivekNroRqiBpmxT/C/vC/rW3q74Fu9SWYwUeb2onU2pqKTRLFuzZrV4lzKs6/oTU1hFqiZkyzbcOZditajmIVDxJcjy17IYN0UJ8GAwNtHY2Dsn+pjTb9UJ+NoBgLiY2h2LXnK7P7TiXxV/a6rMVJFtM1m18mg1C6+28352vv1MFidX1tCFnMKR1SJNwlFfF46Uz/X3+gCmGsz5/dHhSLR1TnQxp18/BpTHqgBgOvvqqWjtBz9TmPn97mLp8FdmZo4sJeTBmGoVLVA9Js82Oz9bOKiqWJ3/PR2nLhzFF9OVC/tCRjNVM58nJAqXHHV4hkAwOtLQ0D0oROnss3gbnRs5FyF/uFRX94GHwqFLbg6Gzn1QURoLIA4wrk/hnNnmyzP9jjp35E8VSF0mc4SDlSO3hklCBV8vXA5OJZaQYrwaPNW98IrJs9LVV1p/AIwxUhR1f1P82nvCoQv/pxroHWSKX8+fq1epTpfXuy1DnA3N2wFGpUeQle602AomTkDqD5QJHHJpxix3BoH8R/3B+mxtpOHsV7xZxYtcDqbUppua7vpuNHzxzQH/qkdVf73GYM2Pn5HCbYQMrFXjFiy3LSNgDlN3ds66l1nJQczIB0XYQR7kOO/c7mWFDMb8CAVjh+67bx0FwwvfOYoHAF85hRG8JF6I1my8Oxpd9w+qv30YQjWZvNncvVUdE66DkrY5eePrxeR9OJK9C5vbtivbzMElwka+WR228n2yx3dhX4WqqjWiPtZxcknvxrn7vPE2EgP4FbVTk371Q/+bl7Y+k6MDXyiWBt9HIqW4IXwbj4/Zv+Om+vpUt322rKK0aiF5VJA55Gj/tl8LGz9gDmno1/p80clIuP1QTU3znH3Wb8svSQ34OgFAMNDzseiGD0XC538lEFwwyZiiN0MK+355UbnrxknZVhZbLIULIgdvbnXPCG5360TOOE8VBI6otmvHarjQR6bK7+Xzxw53dK053tjU8860eFfrLx6aqKu/+8uJxOO7MnTwHzTt2OWiMK2S2ZjJwGBP/slRZq3EBPKsupHGlRlE4Sy2SIjdBHii8pDIi5MFketEDUnbFss/C6hqELG6tt3NLatSmfzoO9vibdYfWAaimhJTUr9rbrzm1trai7+q+DomCQpI/xryasMOMt/vnhbKSiCXkilcWqrkG1Xw9fJ9e2XOkRYSgZFAKBjPNzT0PL1jx5cRDbV6Fm87nXor0kzuyHhT0z1fVOiR32ey+z9fKBy9XPCMWl4MLMrDtM4+OwPpMztSh402lSxfWFUz91k4d25fuJRnq83SmQ21pCJUEz/S3nbun7RSdm4/U8wjCdcshQJFy6aO7mioe+/m2tqLvugLdY4qik8fi3ZQvMKx7qSCroV9hbntSw9gK7S4IXQnBeuW9lWub5WKjoof0dq2Hd0968fa2hbPbSjFPJVCoR+BQK86Ovbwxfn865+cmel/fy43FmLVvqjYcPm6IxDyhml5wEGgDOgAaVUJQXCyxXr5vtw5ax+ocJZxycYABmpapvv6rruhUEg/ffXVn5vb9Hm+Kj4YXAwi4tFY+7MNzee9Mjr8+9sZ+j+bzx9bTDQNA/KZe6mlLz+ykz6wTbfa3ba98mY1WkgNkyAIWxrnRukak7UwlzUw5kNdXffuFcuv+9Nk8tjcg2ecBcJFFgoLs6nUc6snEn/4aD536PZ8bryBRBGAAmLCthMXtsZIAuflQ8HlvndBNosnuafOsHrZK7jQufIhIWLghofQBMKRttyKVdffPTS4b8tNt9xnZjFejP8viKpEwBgjRuFXuzo+/In6uvW3RKKrHlN8jUWCcGyfguvIshvfbipNuI01MxfwBjNHL1/L7NcKc2AHsbqu3UuWbPzdmgtum3OlnzWKN6Q+fj6CocYSEX6/oHPzHQ316z8aqjnnVaZGyKBrhdnrXrZwLpEucq4uJE5dyHStSfgIKQMQFV+4ILgb2Cv/LljTnm1s7Pvu9u3fSvUs2vDWUOQ4y8SwHs6L07HYBT8aT+x8amry5bszM/1/UcgPLRalGVbedm3EdWEpvMrCAoscJKkFi+zz7Y7pGbciDwjw+8LU0bby/66/4q8fGxjc85ZY+1kT42eTUn4SvmCcjYxsWzQ9ffCudOb4Pbnc4AJeKujdrdAROmwI3obybehd2AYlrBAhKposnaPRBBXNLat3rF51812Z7NjYuos//NYZCN4hUsgPIBBcoAyNbFkxmTh4+8zMwJ253GhPqZRlgnOz+5UcnTJCDwfSupIKKtdE+MLi6WG8nr6xksiPhsbl+5cufffd4+OH927a9BUwRfEUP1eSzg4hFGpXRkYf7U1NvnpnOn3ijpmZ0T6tMK2URBFEil5XtyhZG9q35e+Wp+AyZ8DJXHdSRv8qGhqWHe7re8/H9r7w06c++Bc/R11t81v6ObzjFG+mgKUEFF8DGxnesTA59dqm6VT/rZns8LpCIVFbKuZsbdG8YvTZDvrMEqzRkMF1108Mqhqlxsa+P/Z0X/k/Llp3955iMYVAoO6tx0J4hwsRYW0fw/bnXq4dH997YSpz7Kbp1MjG/ExicaEwGRJaEdxA6vJos5AmYaXlBuXtlAxM9SMc7hhralr2QE/3Zd/+9W8+P/iZT/8JiuJ/e4BgeGIBQZ6BT4mow2PPtyTGDqydmjp2VS43sa5UTPXlcummYjGrlrRiOX3jAhzWQAYEoCgB+P2xUihU3x+t7Xy6pWXFv1904YdfnEy8pjU2rXh7ZT+euqt5AgGAsen069HE+P6FicSJFTO55PkzhamuUiHXpBUL9VwIHzGQT/VpqhpOhMNtA7WRtqcbGrp2L+27bqSkpbjfV/eWpWye4v9MIUH/vJhWzPmy6eFQSZtRGFMoGIqIcLS1oCgh/Wum8LZUtieeeOKJJ5544oknnnjiiSeeeOKJJ5544oknnnjiiSeeeOKJJ5544oknnnjy55L/B/ZB0llAWB1bAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDI2LTA1LTE1VDE0OjA2OjM1KzAwOjAwMQd0fgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyNi0wNS0xNVQxNDowNToyNCswMDowMMGwfOsAAAAASUVORK5CYII=" alt="Rational Root" width="128" height="128">
+      <span class="hero-wordmark">Rational <span class="r">Root</span></span>
+    </div>
+    <div class="hero-title-block">
+      <div class="hero-doc-title">AI JUMPSTART</div>
+      <div class="hero-doc-class">INTERNAL BRIEFING</div>
+    </div>
+  </div>
+  <div class="hero-body">
+    <div class="hero-body-left">
+      <hr class="hero-rule">
+      <div class="hero-tagline">Next Steps on the Contextual Ascent</div>
+      <h1>Getting Started with Claude Cowork</h1>
+      <p>Get AI to Actually Do Work for You</p>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat-row">
+        <div class="hero-stat-label">Platform</div>
+        <div class="hero-stat-value">Anthropic &middot; Claude</div>
+      </div>
+      <div class="hero-stat-row">
+        <div class="hero-stat-label">Subscription</div>
+        <div class="hero-stat-value">Monthly &middot; stay flexible</div>
+      </div>
+      <div class="hero-stat-row">
+        <div class="hero-stat-label">Progression</div>
+        <div class="hero-stat-value">Chat &rarr; Cowork &rarr; Code</div>
+      </div>
+      <div class="hero-stat-row">
+        <div class="hero-stat-label">Foundation</div>
+        <div class="hero-stat-value">Context in &middot; Quality out</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-eyes">eyes only</div>
+</header>
+
+<main>
+
+<!-- THE MENTAL MODEL -->
+<div class="container">
+  <div class="section">
+    <div class="section-label">The Mental Model</div>
+    <h2 class="section-title">Three Things to Understand First</h2>
+
+    <div class="accordion">
+      <button class="accordion-trigger open" onclick="toggleAccordion(this)">
+        <div class="acc-left">
+          <div class="acc-icon blue">&#9654;</div>
+          <div>
+            <div class="acc-subtitle" style="margin-top:0; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: var(--accent);">01</div>
+            <div class="acc-title">Flow</div>
+            <div class="acc-subtitle">If you&rsquo;ve only used AI through a chat window, this is the shift.</div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="accordion-body open" style="max-height: 600px;">
+        <div class="accordion-content">
+          <p style="margin-bottom: 24px;">Cowork is a different kind of tool. Here&rsquo;s the iterative flow.</p>
+          <div class="split" style="grid-template-columns: 1fr 1fr 1fr;">
+            <div class="split-panel" style="border-top: 4px solid var(--accent); background: linear-gradient(165deg, #E0F0EF 0%, var(--white) 40%);">
+              <h4>Chat &rarr; Desktop App</h4>
+              <p>You&rsquo;re moving beyond the chat window. Cowork is a desktop application that runs locally on your machine, not in a browser tab.</p>
+            </div>
+            <div class="split-panel" style="border-top: 4px solid var(--warm); background: linear-gradient(165deg, #FAF8DD 0%, var(--white) 40%);">
+              <h4>Add Folders to Context</h4>
+              <p>You point it at folders on your machine. It reads your files, understands your context, and works inside your world.</p>
+            </div>
+            <div class="split-panel" style="border-top: 4px solid var(--accent); background: linear-gradient(165deg, #E0F0EF 0%, var(--white) 40%);">
+              <h4>Results: Created Artifacts</h4>
+              <p>Tell it what you need. It produces real files &mdash; documents, spreadsheets, code, presentations. We call them artifacts.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <div class="acc-left">
+          <div class="acc-icon navy">&#9632;</div>
+          <div>
+            <div class="acc-subtitle" style="margin-top:0; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: var(--accent);">02</div>
+            <div class="acc-title">Projects as Topics</div>
+            <div class="acc-subtitle">How Cowork organises your work into meaningful groups.</div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p>In the Claude desktop app, Cowork organises your conversations into <strong>projects</strong>. Each project is a group of related chats about a specific topic &mdash; and that&rsquo;s why you name your projects as topics.</p>
+          <p>A topic can be a <strong>specific client project</strong> &mdash; &ldquo;Acme Rebrand&rdquo;, &ldquo;Q3 Board Pack&rdquo;, &ldquo;Website Redesign&rdquo;. Or it can be something you do <strong>across all clients</strong>, like &ldquo;Gap Analysis&rdquo;, &ldquo;Proposal Templates&rdquo;, or &ldquo;Weekly Reporting&rdquo;.</p>
+          <p>Think of each project as a workspace with memory. Every chat inside it shares the same context, files, and history &mdash; so Claude builds a deeper understanding of that topic over time rather than starting from zero every conversation.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <div class="acc-left">
+          <div class="acc-icon warm">&#8635;</div>
+          <div>
+            <div class="acc-subtitle" style="margin-top:0; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: var(--accent);">03</div>
+            <div class="acc-title">Iteration</div>
+            <div class="acc-subtitle">Why getting things done in Cowork is a conversation, not a command.</div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p>Cowork doesn&rsquo;t work like a vending machine &mdash; you don&rsquo;t put in a request and get a finished product. The best results come from <strong>iterating</strong>: ask for something, review what comes back, refine, and go again.</p>
+          <p>First drafts are starting points, not deliverables. Tell Claude what&rsquo;s wrong, what&rsquo;s missing, or what to change &mdash; and it will revise in place. Each round gets sharper because Claude remembers the full conversation and the files it has already produced.</p>
+          <p>This is the mental shift: you&rsquo;re not writing a perfect prompt. You&rsquo;re having a working conversation, the same way you would with a colleague. Start rough, steer as you go, and let the output evolve.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 1: FIRST PRINCIPLES -->
+<div class="container">
+  <div class="section">
+    <div class="section-label">First Principles</div>
+    <h2 class="section-title">Set the Right Tone from Day One</h2>
+    <div class="section-subtitle">Before you build anything, change how your AI talks to you. The default behavior of most AI tools is to flatter you. That wastes time, wastes tokens, and &mdash; worse &mdash; creates an agent that feels obligated to please rather than to tell you what you need to hear.</div>
+
+    <div class="split split-aligned">
+      <div class="split-panel before">
+        <div class="panel-tag before-tag">Default Behavior</div>
+        <h3 class="panel-title">The Obsequious Agent</h3>
+        <p class="panel-desc">AI providers actively instruct their agents to be agreeable and complimentary. The result is an assistant that wastes energy telling you how great your ideas are instead of identifying what you are missing.</p>
+
+        <div class="gap-block">
+          <h3>THE COST</h3>
+          <div class="gap-sub">Pleasantries burn tokens and cloud judgment. A private business conversation should be centered on facts and truth, not flattery.</div>
+          <div class="symptom-grid">
+            <div class="symptom-card">
+              <p>"Great question!" before every single answer.</p>
+            </div>
+            <div class="symptom-card">
+              <p>Agreeing with flawed assumptions to avoid pushback.</p>
+            </div>
+            <div class="symptom-card">
+              <p>Padding responses with compliments instead of substance.</p>
+            </div>
+            <div class="symptom-card">
+              <p>Never telling you what you are actually missing.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; padding: 20px 24px; background: var(--white); border: 1px solid var(--border); border-radius: 6px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">Definition</div>
+          <p style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px;">Obsequious <span style="font-weight: 400; font-style: italic; color: var(--mid-text);">/&#601;b&#712;si&#720;kwi&#601;s/</span></p>
+          <p style="font-size: 14px; color: var(--dark-text); line-height: 1.6; margin-bottom: 10px;">Excessively eager to please or agree; fawning, compliant to the point of being insincere.</p>
+          <p style="font-size: 13px; color: var(--mid-text); line-height: 1.5; font-style: italic;">Almost every AI agent on the market is explicitly instructed to be obsequious &mdash; to encourage adoption and keep you happy. The result is an assistant optimised for your comfort, not your outcomes.</p>
+        </div>
+      </div>
+
+      <div class="split-panel after">
+        <div class="panel-tag after-tag">What To Do</div>
+        <h3 class="panel-title">Direct, Factual, Honest</h3>
+        <p class="panel-desc">Tell your agent not to be obsequious. This is a private conversation between you and your AI &mdash; you want productivity, insight, and the truth. Most business owners would rather be told what they are missing than what they are doing right.</p>
+
+        <div class="brain-block">
+          <h3>THE INSTRUCTION</h3>
+          <div class="brain-sub">Add this to your agent's configuration early. It changes everything about the quality of interaction you get.</div>
+          <div style="background:rgba(255,255,255,0.95); border-radius:6px; padding:18px; font-family:'IBM Plex Mono','SF Mono',Menlo,Consolas,monospace; font-size:13px; color:var(--dark-text); line-height:1.7;">
+            "Do not be obsequious. Skip pleasantries. Focus on facts, gaps, and actionable insight. If I am wrong, say so directly. This is a private working session &mdash; optimize for truth, not comfort."
+          </div>
+        </div>
+
+        <div class="banner blue-banner" style="margin-top:20px;">
+          <h4>Why this matters</h4>
+          <p>When the agent has no obligation to please you, it gives you better analysis, catches more mistakes, and uses fewer tokens doing it.<br>
+          <span class="banner-em">You are paying for intelligence, not compliments.</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 2: THREE MODES -->
+<div class="container">
+  <div class="section">
+    <div class="section-label">The Learning Path</div>
+    <h2 class="section-title">Three Modes &mdash; Learn Them in Order</h2>
+    <div class="section-subtitle">Claude has three distinct interfaces. Each one adds capability, but also complexity. Master each level before moving to the next.</div>
+
+    <div class="mode-grid">
+      <div class="mode-card active">
+        <div class="mode-number">1</div>
+        <h4>Chat</h4>
+        <div class="mode-label">Start here</div>
+        <p>A simple conversation with an AI agent. Ask questions, get answers, explore ideas. This is where you learn how Claude thinks and how to prompt effectively. No files, no workflows &mdash; just dialogue.</p>
+      </div>
+      <div class="mode-card next">
+        <div class="mode-number">2</div>
+        <h4>Cowork</h4>
+        <div class="mode-label">Next step</div>
+        <p>Workflow automation. Claude works with your files, creates documents, manages projects, and connects to external tools. This is where real business productivity begins. Learn this after you are comfortable with Chat.</p>
+      </div>
+      <div class="mode-card later">
+        <div class="mode-number">3</div>
+        <h4>Code</h4>
+        <div class="mode-label">Later</div>
+        <p>A command-line tool for agentic coding. Powerful but complex. Do not entertain this until you understand Cowork well. Most business users will not need it &mdash; but knowing it exists is useful.</p>
+      </div>
+    </div>
+
+    <div class="banner warm-banner">
+      <h4>Why monthly subscriptions?</h4>
+      <p>The pace of change in this industry is extraordinary. A monthly commitment lets you stay flexible. If a better platform emerges in six months, you can move.<br>
+      <span class="banner-em">Lock in value, not vendors.</span></p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 3: INPUTS & OUTPUTS -->
+<div class="container">
+  <div class="section">
+    <div class="section-label">The Core Concept</div>
+    <h2 class="section-title">Inputs &amp; Outputs &mdash; The Virtuous Cycle</h2>
+    <div class="section-subtitle">Everything in your AI workflow has two sides: what you feed in and what comes out. Understanding this cycle is the single most important concept for getting high-quality results. Compound your intel: every output becomes your next head start.</div>
+
+    <div class="flow-diagram">
+      <div class="flow-box input-box">
+        <h4>Inputs</h4>
+        <p>Documents, transcripts, notes, identity context</p>
+      </div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-box process-box">
+        <h4>Claude</h4>
+        <p>Processes with your full business context</p>
+      </div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-box output-box">
+        <h4>Outputs</h4>
+        <p>Documents, analysis, templates, assets</p>
+      </div>
+      <div class="flow-return">Outputs become inputs for future projects</div>
+    </div>
+
+    <div class="split split-aligned">
+      <div class="split-panel before">
+        <div class="panel-tag before-tag">Inputs</div>
+        <h3 class="panel-title">Backfill Before You Build</h3>
+        <p class="panel-desc">Before you start using Claude for real work, collect the documents and texts that define your business. The quality of what you receive is directly tied to how well you onboard your specific context.</p>
+
+        <div class="sub-label warm">Gather These First</div>
+        <div class="info-grid">
+          <div class="info-card warm-card">
+            <h4>Business Documents</h4>
+            <p>Proposals, SOWs, contracts, org charts &mdash; anything that defines how you operate.</p>
+          </div>
+          <div class="info-card warm-card">
+            <h4>Meeting Transcripts</h4>
+            <p>Past conversations captured in Notion, Teams, or any transcription tool.</p>
+          </div>
+          <div class="info-card warm-card">
+            <h4>Voice Notes</h4>
+            <p>Monologues and quick thoughts you have already recorded.</p>
+          </div>
+          <div class="info-card warm-card">
+            <h4>Identity &amp; Style</h4>
+            <p>Brand voice, writing samples, preferred terminology, client communication norms.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="split-panel after">
+        <div class="panel-tag after-tag">Outputs</div>
+        <h3 class="panel-title">Assets That Compound</h3>
+        <p class="panel-desc">Every document Claude creates becomes a potential input for future work. A proposal template built this month influences next month's proposals. The cycle compounds over time.</p>
+
+        <div class="sub-label blue">What You Build</div>
+        <div class="info-grid">
+          <div class="info-card blue-card">
+            <h4>Documents</h4>
+            <p>Reports, memos, presentations, plans &mdash; professional deliverables.</p>
+          </div>
+          <div class="info-card blue-card">
+            <h4>Templates</h4>
+            <p>Reusable starting points: "We're going to do this the way we did that project."</p>
+          </div>
+          <div class="info-card blue-card">
+            <h4>Analysis</h4>
+            <p>Research, competitive intel, data breakdowns &mdash; built with your specific lens.</p>
+          </div>
+          <div class="info-card blue-card">
+            <h4>Influence Materials</h4>
+            <p>Past outputs that shape the tone and direction of future projects.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="banner warm-banner">
+      <h4>The key insight</h4>
+      <p>Once the platform is mature, you will have a library of inputs and outputs. You can then selectively attach them to different Cowork projects &mdash; not everything for every project, but the right context for each one.<br>
+      <span class="banner-em">Selective context is more powerful than total context.</span></p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 4: DEEP DIVES -->
+<div class="container">
+  <div class="section">
+    <div class="section-label">Setup Details</div>
+    <h2 class="section-title">Getting It Right</h2>
+    <div class="section-subtitle">Expand each section for specifics on configuration, folder structure, and identity files.</div>
+
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <div class="acc-left">
+          <div class="acc-icon blue">&#9881;</div>
+          <div>
+            <div class="acc-title">Identity &amp; Configuration Files</div>
+            <div class="acc-subtitle">How Claude knows who you are and how to behave across sessions.</div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p>Claude uses a file called <strong>CLAUDE.md</strong> as its primary configuration and identity reference. This is where you define how Claude should behave, what it should know about you, and what rules it should follow across all sessions.</p>
+          <p>Other platforms (such as OpenAI) use separate files like <em>identity.md</em> and <em>soul.md</em> for similar purposes. Claude consolidates this into a single file, but you can create additional markdown files that CLAUDE.md then refers to &mdash; achieving the same modularity if you need it.</p>
+          <p>The recommended approach is to start by explaining these things conversationally in a Chat session. Tell Claude about your business, your preferences, your communication style. Then have Claude help you formalize those instructions into a permanent CLAUDE.md file.</p>
+          <p>Once written, these configurations apply across all three modes of Claude use: Chat, Cowork, and Code. One identity definition, three surfaces.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <div class="acc-left">
+          <div class="acc-icon warm">&#9670;</div>
+          <div>
+            <div class="acc-title">Folder Structure &amp; OneDrive Setup</div>
+            <div class="acc-subtitle">Where your AI workspace lives on your computer and why it matters.</div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p>Upon setup, choose a <strong>Microsoft OneDrive folder</strong> as the base and home location for all Claude work. This ensures your files are backed up, synced, and accessible from anywhere.</p>
+          <p>Inside your OneDrive, create the following structure:</p>
+
+          <div class="folder-tree">
+            <span class="folder">OneDrive/</span><br>
+            &nbsp;&nbsp;<span class="folder">Agentic/</span> <span class="comment">&larr; top-level container</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight folder">Claude/</span> <span class="comment">&larr; this is the folder you give to Cowork</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">Project Alpha CW/</span> <span class="comment">&larr; created by Cowork</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">Client Report CW/</span> <span class="comment">&larr; created by Cowork</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">...</span>
+          </div>
+
+          <p>When you start a new Cowork project, you provide the <strong>Claude/</strong> folder. Cowork then creates a subfolder inside it, named after your project. This keeps everything organized under one roof.</p>
+          <p><strong>Important details to be aware of:</strong></p>
+          <ul>
+            <li><strong>The first folder you add to a Cowork project cannot be removed.</strong> Only the second, third, and subsequent folders can be detached. Choose your initial folder carefully.</li>
+            <li><strong>Duplicate folder names are easy to create accidentally.</strong> If you are not careful about how you name and start your Cowork projects, you can end up with two folders of the same name. Pay attention during project setup.</li>
+            <li><strong>Additional folders can be attached selectively.</strong> Once your library of context grows, you can include specific input folders alongside the project folder &mdash; giving Claude exactly the context it needs for each engagement.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <div class="acc-left">
+          <div class="acc-icon navy">&#9783;</div>
+          <div>
+            <div class="acc-title">Context Backfilling Strategy</div>
+            <div class="acc-subtitle">How to front-load context so Claude produces high-quality work from the start.</div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p>The biggest mistake new users make is jumping straight into asking Claude to produce work without giving it any business context. The result is generic output that could have come from anyone.</p>
+          <p>Before your first real Cowork project, invest time in assembling your context library:</p>
+          <ul>
+            <li><strong>Collect existing documents.</strong> Proposals, past deliverables, internal processes, client briefs &mdash; anything that represents how your business thinks and operates.</li>
+            <li><strong>Transcribe voice notes and monologues.</strong> Tools like Notion, Otter, or even Claude itself can turn your spoken thoughts into structured text. These are some of the highest-value context you can provide.</li>
+            <li><strong>Write a business identity brief.</strong> Even a few paragraphs describing your company, your role, your clients, and your communication style will dramatically improve results.</li>
+            <li><strong>Start in Chat first.</strong> Have a conversation with Claude where you explain who you are and what you do. Then ask Claude to help you turn that conversation into a permanent CLAUDE.md configuration.</li>
+          </ul>
+          <p>The information you receive and the assets you build are of much higher quality when you actually onboard your specific business identity and context to Claude. This upfront investment pays dividends on every future session.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <div class="acc-left">
+          <div class="acc-icon green">&#10003;</div>
+          <div>
+            <div class="acc-title">Selective Context for Projects</div>
+            <div class="acc-subtitle">Not every project needs every document. Learn to curate what Claude sees.</div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p>Once your platform matures, you will have a growing collection of inputs (business documents, templates, past transcripts) and outputs (deliverables, analysis, generated assets). The power move is learning to <strong>selectively attach</strong> the right context to each project.</p>
+          <p>When you start a Cowork project, you select a folder. But you can add additional folders as context sources. This means you can maintain dedicated folders for different purposes:</p>
+          <ul>
+            <li><strong>Client-specific context</strong> &mdash; past engagements, communication history, and preferences for a particular client.</li>
+            <li><strong>Industry research</strong> &mdash; market analysis, competitor intelligence, and regulatory notes relevant to a sector.</li>
+            <li><strong>Templates and standards</strong> &mdash; your approved formats, brand guidelines, and reusable frameworks.</li>
+            <li><strong>Project archives</strong> &mdash; completed work that serves as reference for similar future engagements.</li>
+          </ul>
+          <p>By including only the folders relevant to the current project, you give Claude focused, high-signal context instead of dumping everything on it. This leads to faster, more accurate, and more relevant outputs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 5: GETTING STARTED STEPS -->
+<div class="container">
+  <div class="section">
+    <div class="section-label">Action Plan</div>
+    <h2 class="section-title">Your First Lap</h2>
+    <div class="section-subtitle">A practical sequence to go from zero to productive. Each step builds on the last.</div>
+
+    <div class="step-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h4>Set Up OneDrive Structure</h4>
+        <p>Create your OneDrive &rarr; Agentic &rarr; Claude folder hierarchy. This is the permanent home for all your AI work.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h4>Subscribe Monthly</h4>
+        <p>Sign up for Anthropic's Claude platform with a monthly subscription. Stay flexible while the industry evolves.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h4>Start in Chat</h4>
+        <p>Have your first conversation. Tell Claude about your business, set the non-obsequious tone, and explore how it thinks.</p>
+      </div>
+    </div>
+    <div class="step-grid">
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <h4>Gather Your Context</h4>
+        <p>Collect documents, transcripts, notes, and identity materials. Build your context library before your first real project.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">5</div>
+        <h4>Create Your CLAUDE.md</h4>
+        <p>Work with Claude in Chat to formalize your identity and behavior preferences into a permanent configuration file.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">6</div>
+        <h4>Launch Your First Cowork</h4>
+        <p>Start a Cowork project, point it at your Claude folder, attach your context, and begin building real deliverables.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- OUTCOMES -->
+<div class="container">
+  <div class="section">
+    <div class="section-label">Outcomes</div>
+    <h2 class="section-title">What You Get When You Do This Right</h2>
+    <div class="section-subtitle">The payoff for investing in proper setup and context.</div>
+
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <div class="benefit-header"><h4>Honest Intelligence</h4></div>
+        <div class="benefit-body">
+          <p>An agent that tells you what you are missing, not what you want to hear. Private, direct, and optimized for your actual decisions.</p>
+          <p class="benefit-italic">The difference between a yes-man and an advisor.</p>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-header"><h4>Compounding Assets</h4></div>
+        <div class="benefit-body">
+          <p>Every output becomes a future input. Templates, analysis, and deliverables accumulate into a library that makes each project faster than the last.</p>
+          <p class="benefit-italic">Week six is dramatically more productive than week one.</p>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-header"><h4>Vendor Independence</h4></div>
+        <div class="benefit-body">
+          <p>Monthly subscriptions and a OneDrive-based file structure mean you are never locked in. If a better platform appears, your context library moves with you.</p>
+          <p class="benefit-italic">Your knowledge, your files, your terms.</p>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-header"><h4>Structured Growth</h4></div>
+        <div class="benefit-body">
+          <p>Chat teaches you to think with AI. Cowork teaches you to build with AI. Code is there when you are ready. Each step earned, not skipped.</p>
+          <p class="benefit-italic">Competence compounds faster than complexity.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <strong>Rational Root</strong> &middot; AI Jumpstart
+</footer>
+
+<script>
+function toggleKc(pill) {
+  const body = pill.querySelector('.kc-body');
+  const isOpen = pill.classList.contains('open');
+  document.querySelectorAll('.kc-pill').forEach(p => {
+    p.classList.remove('open');
+    p.querySelector('.kc-body').style.maxHeight = null;
+  });
+  if (!isOpen) {
+    pill.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+  }
+}
+function toggleAccordion(trigger) {
+  const body = trigger.nextElementSibling;
+  const isOpen = trigger.classList.contains('open');
+  document.querySelectorAll('.accordion-trigger').forEach(t => {
+    t.classList.remove('open');
+    t.nextElementSibling.classList.remove('open');
+    t.nextElementSibling.style.maxHeight = null;
+  });
+  if (!isOpen) {
+    trigger.classList.add('open');
+    body.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+  }
+}
+</script>
 </body>
 </html>
