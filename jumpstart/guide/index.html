@@ -1000,8 +1000,11 @@
     .step-grid { grid-template-columns: 1fr; }
     .info-grid { grid-template-columns: 1fr 1fr; }
   }
+  .flow-split {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
   @media (max-width: 768px) {
-    .split { grid-template-columns: 1fr; }
+    .split, .flow-split { grid-template-columns: 1fr; }
     .flow-diagram { flex-direction: column; }
     .flow-arrow { transform: rotate(90deg); padding: 4px 0; }
   }
@@ -1153,7 +1156,7 @@
       <div class="accordion-body open" style="max-height: 600px;">
         <div class="accordion-content">
           <p style="margin-bottom: 24px;">Cowork is a different kind of tool. Here&rsquo;s the iterative flow.</p>
-          <div class="split" style="grid-template-columns: 1fr 1fr 1fr;">
+          <div class="split flow-split">
             <div class="split-panel" style="border-top: 4px solid var(--accent); background: linear-gradient(165deg, #E0F0EF 0%, var(--white) 40%);">
               <h4>Chat &rarr; Desktop App</h4>
               <p>You&rsquo;re moving beyond the chat window. Cowork is a desktop application that runs locally on your machine, not in a browser tab.</p>
