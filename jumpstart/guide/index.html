@@ -120,6 +120,42 @@
     padding: 48px 48px 56px;
     position: relative;
     z-index: 1;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+  }
+  .hero-body-left {
+    flex: 1;
+    min-width: 0;
+  }
+  .hero-stats {
+    flex-shrink: 0;
+    width: 220px;
+    background: rgba(244,241,234,0.06);
+    border: 1px solid rgba(244,241,234,0.10);
+    border-radius: 6px;
+    padding: 20px;
+    margin-top: 40px;
+  }
+  .hero-stat-row {
+    padding: 10px 0;
+  }
+  .hero-stat-row:not(:last-child) {
+    border-bottom: 1px solid rgba(244,241,234,0.08);
+  }
+  .hero-stat-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 3px;
+  }
+  .hero-stat-value {
+    font-size: 13px;
+    color: rgba(244,241,234,0.75);
+    font-weight: 500;
   }
   .hero-rule {
     border: none;
@@ -973,9 +1009,58 @@
     .benefit-grid { grid-template-columns: 1fr; }
     .symptom-grid { grid-template-columns: 1fr; }
     .info-grid { grid-template-columns: 1fr; }
-    .stats-bar { grid-template-columns: repeat(2, 1fr); }
-    .stat-item:nth-child(2) { border-right: none; }
-    .hero h1 { font-size: 32px; }
+    .hero h1 { font-size: 28px; }
+    .hero-body {
+      flex-direction: column;
+      padding: 32px 24px 40px;
+      gap: 24px;
+    }
+    .hero-stats {
+      width: 100%;
+      margin-top: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 0;
+    }
+    .hero-stat-row {
+      padding: 12px 14px;
+      border-bottom: none !important;
+    }
+    .hero-stat-row:nth-child(odd) {
+      border-right: 1px solid rgba(244,241,234,0.08);
+    }
+    .hero-stat-row:nth-child(1),
+    .hero-stat-row:nth-child(2) {
+      border-bottom: 1px solid rgba(244,241,234,0.08) !important;
+    }
+    .hero-topbar {
+      padding: 20px 24px 0;
+    }
+    .hero-tagline {
+      font-size: 12px;
+      padding: 6px 14px;
+    }
+    /* Overlay mobile fixes */
+    .orient-overlay {
+      align-items: flex-start;
+      padding: 16px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .orient-card {
+      padding: 28px 20px 24px;
+      margin: auto 0;
+    }
+    .orient-title {
+      font-size: 20px;
+    }
+    .orient-step {
+      padding: 16px 14px;
+    }
+    .orient-step-title {
+      font-size: 14px;
+    }
   }
 </style>
 </head>
@@ -985,25 +1070,22 @@
 <div class="orient-overlay" id="orientOverlay">
   <div class="orient-card">
     <div class="orient-label">A shift is happening</div>
-    <div class="orient-title">AI is moving fast.<br>The way we work needs to evolve with it.</div>
+    <div class="orient-title">AI is moving fast. The way we work needs to evolve with it.</div>
     <div class="orient-steps">
       <div class="orient-step">
         <div class="orient-num">The gap</div>
-        <div class="orient-step-title">Chatbots are the starting line, not the finish</div>
-        <div class="orient-step-desc">If you&rsquo;ve been asking an AI chat agent questions and reading answers, you&rsquo;ve barely scratched the surface. The real capability is a platform that works alongside you &mdash; producing deliverables, managing context, and compounding what it knows about your business over time.</div>
+        <div class="orient-step-title">Chatbots are great, but there's more on the table...</div>
       </div>
       <div class="orient-step">
         <div class="orient-num">The leap</div>
-        <div class="orient-step-title">A massive acceleration in productivity</div>
-        <div class="orient-step-desc">We&rsquo;re talking about documents drafted in minutes, analysis that would take days completed in a conversation, and a growing library of assets that makes every future project faster than the last.</div>
+        <div class="orient-step-title">A massive acceleration in productivity with Cowork.</div>
       </div>
       <div class="orient-step">
         <div class="orient-num">The catch</div>
-        <div class="orient-step-title">It only works if you tailor the approach</div>
-        <div class="orient-step-desc">You could try the plug-and-play method &mdash; it&rsquo;s possible. We&rsquo;re helping you skip the time-wasting period. The people getting extraordinary results are the ones who invest in setup: identity, context, structure. This guide shows you exactly how.</div>
+        <div class="orient-step-title">It can be a time-wasting minefield - let's tailor the approach.</div>
       </div>
     </div>
-    <button class="orient-dismiss" onclick="document.getElementById('orientOverlay').classList.add('dismissed')">Show me how &rarr;</button>
+    <button class="orient-dismiss" onclick="document.getElementById('orientOverlay').classList.add('dismissed')">Get Started &rarr;</button>
   </div>
 </div>
 
@@ -1020,36 +1102,35 @@
     </div>
   </div>
   <div class="hero-body">
-    <hr class="hero-rule">
-    <div class="hero-tagline">Next Steps on the Contextual Ascent</div>
-    <h1>Getting Started with Claude Cowork</h1>
-    <p>Get AI to Actually Do Work for You</p>
+    <div class="hero-body-left">
+      <hr class="hero-rule">
+      <div class="hero-tagline">Next Steps on the Contextual Ascent</div>
+      <h1>Getting Started with Claude Cowork</h1>
+      <p>Get AI to Actually Do Work for You</p>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat-row">
+        <div class="hero-stat-label">Platform</div>
+        <div class="hero-stat-value">Anthropic &middot; Claude</div>
+      </div>
+      <div class="hero-stat-row">
+        <div class="hero-stat-label">Subscription</div>
+        <div class="hero-stat-value">Monthly &middot; stay flexible</div>
+      </div>
+      <div class="hero-stat-row">
+        <div class="hero-stat-label">Progression</div>
+        <div class="hero-stat-value">Chat &rarr; Cowork &rarr; Code</div>
+      </div>
+      <div class="hero-stat-row">
+        <div class="hero-stat-label">Foundation</div>
+        <div class="hero-stat-value">Context in &middot; Quality out</div>
+      </div>
+    </div>
   </div>
   <div class="hero-eyes">eyes only</div>
 </header>
 
 <main>
-<!-- STATS BAR -->
-<div class="container">
-  <div class="stats-bar">
-    <div class="stat-item">
-      <div class="stat-label">Platform</div>
-      <div class="stat-value">Anthropic &middot; Claude</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-label">Subscription</div>
-      <div class="stat-value">Monthly &middot; stay flexible</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-label">Progression</div>
-      <div class="stat-value">Chat &rarr; Cowork &rarr; Code</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-label">Foundation</div>
-      <div class="stat-value">Context in &middot; Quality out</div>
-    </div>
-  </div>
-</div>
 
 <!-- THE MENTAL MODEL -->
 <div class="container">
@@ -1079,7 +1160,7 @@
             </div>
             <div class="split-panel" style="border-top: 4px solid var(--warm); background: linear-gradient(165deg, #FAF8DD 0%, var(--white) 40%);">
               <h4>Add Folders to Context</h4>
-              <p>You point it at folders on your machine. It reads your files, understands your context, and works inside your world.</p>
+              <p>You point it at folders on your machine. It reads your files, understands your context, and works inside your world, with solid guardrails.</p>
             </div>
             <div class="split-panel" style="border-top: 4px solid var(--accent); background: linear-gradient(165deg, #E0F0EF 0%, var(--white) 40%);">
               <h4>Results: Created Artifacts</h4>
@@ -1097,7 +1178,7 @@
           <div>
             <div class="acc-subtitle" style="margin-top:0; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: var(--accent);">02</div>
             <div class="acc-title">Projects as Topics</div>
-            <div class="acc-subtitle">How Cowork organises your work into meaningful groups.</div>
+            <div class="acc-subtitle">How Cowork organizes your work into meaningful groups.</div>
           </div>
         </div>
         <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
@@ -1125,7 +1206,7 @@
       </button>
       <div class="accordion-body">
         <div class="accordion-content">
-          <p>Cowork doesn&rsquo;t work like a vending machine &mdash; you don&rsquo;t put in a request and get a finished product. The best results come from <strong>iterating</strong>: ask for something, review what comes back, refine, and go again.</p>
+          <p>Cowork doesn&rsquo;t quite work like a vending machine &mdash; you don&rsquo;t typically put in a request and get a usable product immediately. The best results come from <strong>iterating</strong>: ask for something, review what comes back, refine, and go again.</p>
           <p>First drafts are starting points, not deliverables. Tell Claude what&rsquo;s wrong, what&rsquo;s missing, or what to change &mdash; and it will revise in place. Each round gets sharper because Claude remembers the full conversation and the files it has already produced.</p>
           <p>This is the mental shift: you&rsquo;re not writing a perfect prompt. You&rsquo;re having a working conversation, the same way you would with a colleague. Start rough, steer as you go, and let the output evolve.</p>
         </div>
@@ -1162,7 +1243,7 @@
               <p>Padding responses with compliments instead of substance.</p>
             </div>
             <div class="symptom-card">
-              <p>Never telling you what you are actually missing.</p>
+              <p>Sometimes, a default agent may not tell you what you are actually missing.</p>
             </div>
           </div>
         </div>
@@ -1224,7 +1305,7 @@
         <div class="mode-number">3</div>
         <h4>Code</h4>
         <div class="mode-label">Later</div>
-        <p>A command-line tool for agentic coding. Powerful but complex. Do not entertain this until you understand Cowork well. Most business users will not need it &mdash; but knowing it exists is useful.</p>
+        <p>A command-line tool for agentic coding. Powerful but complex. Keep this one for when you understand Cowork well. Some business users will not need it &mdash; but knowing there's another level is useful.</p>
       </div>
     </div>
 
@@ -1319,7 +1400,7 @@
 
     <div class="banner warm-banner">
       <h4>The key insight</h4>
-      <p>Once the platform is mature, you will have a library of inputs and outputs. You can then selectively attach them to different Cowork projects &mdash; not everything for every project, but the right context for each one.<br>
+      <p>Your platform will mature, and you will have a library of inputs and outputs. You can then selectively attach them to different Cowork projects &mdash; not everything for every project, but the right context for each one.<br>
       <span class="banner-em">Selective context is more powerful than total context.</span></p>
     </div>
   </div>
@@ -1404,7 +1485,7 @@
       </button>
       <div class="accordion-body">
         <div class="accordion-content">
-          <p>The biggest mistake new users make is jumping straight into asking Claude to produce work without giving it any business context. The result is generic output that could have come from anyone.</p>
+          <p>The biggest mistake new users make is jumping straight into asking Claude to produce work without giving it any business context. The result is generic output that could apply to anyone.</p>
           <p>Before your first real Cowork project, invest time in assembling your context library:</p>
           <ul>
             <li><strong>Collect existing documents.</strong> Proposals, past deliverables, internal processes, client briefs &mdash; anything that represents how your business thinks and operates.</li>
