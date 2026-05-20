@@ -70,7 +70,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 28px 48px 0;
+    padding: 40px 48px 0;
     position: relative;
     z-index: 1;
   }
@@ -178,7 +178,7 @@
     letter-spacing: 2.5px;
     text-transform: uppercase;
     color: var(--warm);
-    margin-bottom: 20px;
+    margin-bottom: 32px;
     position: relative;
     display: inline-block;
     padding: 8px 20px;
@@ -1640,12 +1640,11 @@ function toggleKc(pill) {
 function toggleAccordion(trigger) {
   const body = trigger.nextElementSibling;
   const isOpen = trigger.classList.contains('open');
-  document.querySelectorAll('.accordion-trigger').forEach(t => {
-    t.classList.remove('open');
-    t.nextElementSibling.classList.remove('open');
-    t.nextElementSibling.style.maxHeight = null;
-  });
-  if (!isOpen) {
+  if (isOpen) {
+    trigger.classList.remove('open');
+    body.classList.remove('open');
+    body.style.maxHeight = null;
+  } else {
     trigger.classList.add('open');
     body.classList.add('open');
     body.style.maxHeight = body.scrollHeight + 'px';
