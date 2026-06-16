@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Put Your Spare Cycles to Work — Talking With AI While Your Hands Are Busy</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --navy: #002F2E;
+    --navy-deep: #001A19;
+    --navy-mid: #014A49;
+    --steel: #828883;
+    --accent: #028482;
+    --accent-light: rgba(2,132,130,0.08);
+    --light-bg: #F4F1EA;
+    --card-bg: #FAF8F2;
+    --warm: #CAC80D;
+    --warm-light: #FAF8DD;
+    --dark-text: #15201A;
+    --mid-text: #4D544F;
+    --white: #FFFFFF;
+    --border: #E8E6E1;
+    --shadow: 0 1px 2px rgba(0,0,0,0.04), 0 1px 1px rgba(0,0,0,0.02);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+
+    --claude-color: #028482;
+    --claude-bg: rgba(2,132,130,0.06);
+    --claude-border: rgba(2,132,130,0.22);
+    --openai-color: #6B4FA0;
+    --openai-bg: rgba(107,79,160,0.06);
+    --openai-border: rgba(107,79,160,0.22);
+    --safety: #B8860B;
+    --safety-bg: #FBF6E3;
+    --safety-border: rgba(184,134,11,0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, system-ui, -apple-system, sans-serif;
+    color: var(--dark-text);
+    background: var(--light-bg);
+    line-height: 1.6;
+  }
+
+  /* ══════════════ HERO ══════════════ */
+  .hero {
+    background: linear-gradient(160deg, #001A19 0%, #002F2E 40%, #014A49 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(2,132,130,0.03) 3px, rgba(2,132,130,0.03) 4px);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 45%; height: 100%;
+    background: radial-gradient(ellipse at 80% 40%, rgba(2,132,130,0.14) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 48px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-wordmark {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    color: #FAF8F2;
+  }
+  .hero-wordmark .r { color: var(--warm); }
+  .hero-title-block { text-align: right; }
+  .hero-doc-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--warm);
+    line-height: 1;
+  }
+  .hero-doc-class {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(202,200,13,0.45);
+    margin-top: 4px;
+  }
+  .hero-rule {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(202,200,13,0.4) 0%, rgba(2,132,130,0.2) 60%, transparent 100%);
+    margin: 24px 48px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-body {
+    padding: 48px 48px 60px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 {
+    font-size: 44px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #FAF8F2;
+    line-height: 1.1;
+    margin-bottom: 18px;
+    max-width: 760px;
+  }
+  .hero p {
+    font-size: 17px;
+    color: rgba(244,241,234,0.62);
+    line-height: 1.6;
+    max-width: 660px;
+  }
+  .hero-preface {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    font-style: normal;
+    letter-spacing: 0.2px;
+    color: rgba(202,200,13,0.6);
+    border-left: 2px solid rgba(202,200,13,0.35);
+    padding-left: 14px;
+    margin-bottom: 16px;
+    line-height: 1.55;
+  }
+  .hero-eyes {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(202,200,13,0.18);
+    position: absolute;
+    bottom: 16px;
+    right: 48px;
+    z-index: 1;
+  }
+
+  /* ══════════════ CONTAINER / SECTION ══════════════ */
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .section { padding: 56px 0; }
+  .section.tight { padding-top: 24px; }
+  .section-label {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+  .section-subtitle {
+    font-size: 16px;
+    color: var(--mid-text);
+    margin-bottom: 36px;
+    line-height: 1.7;
+    max-width: 700px;
+  }
+  .prose p {
+    font-size: 16px;
+    color: var(--mid-text);
+    line-height: 1.75;
+    margin-bottom: 18px;
+    max-width: 740px;
+  }
+  .prose p strong { color: var(--dark-text); font-weight: 600; }
+
+  /* ══════════════ SAFETY BANNER ══════════════ */
+  .safety-banner {
+    background: var(--safety-bg);
+    border: 1px solid var(--safety-border);
+    border-left: 4px solid var(--safety);
+    border-radius: 8px;
+    padding: 26px 28px;
+    margin: 0 0 8px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .safety-icon {
+    width: 40px; height: 40px;
+    border-radius: 8px;
+    background: rgba(184,134,11,0.12);
+    border: 1px solid var(--safety-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .safety-banner h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #6e520a;
+    margin-bottom: 6px;
+  }
+  .safety-banner p {
+    font-size: 14.5px;
+    color: #6e520a;
+    line-height: 1.65;
+    opacity: 0.92;
+  }
+
+  /* ══════════════ RULES OF THE ROAD ══════════════ */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .rule-card {
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    padding: 22px 24px;
+    box-shadow: var(--shadow);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .rule-tick {
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    background: var(--accent-light);
+    color: var(--accent);
+    border: 1px solid var(--claude-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .rule-card.no .rule-tick {
+    background: rgba(184,134,11,0.1);
+    color: var(--safety);
+    border-color: var(--safety-border);
+  }
+  .rule-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 3px;
+  }
+  .rule-card p {
+    font-size: 13.5px;
+    color: var(--mid-text);
+    line-height: 1.55;
+  }
+
+  /* ══════════════ WHY THE CAR ══════════════ */
+  .use-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 8px;
+  }
+  .use-card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    padding: 24px 26px;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .use-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+  .use-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .use-card h4 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .use-card p {
+    font-size: 14px;
+    color: var(--mid-text);
+    line-height: 1.6;
+  }
+
+  /* ══════════════ TWO PROVIDERS ══════════════ */
+  .provider-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 8px;
+  }
+  .provider-card {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 26px 28px;
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--border);
+  }
+  .provider-card.claude { border-top-color: var(--claude-color); }
+  .provider-card.openai { border-top-color: var(--openai-color); }
+  .provider-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .provider-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  .provider-card.claude .provider-badge { background: var(--claude-bg); color: var(--claude-color); border: 1px solid var(--claude-border); }
+  .provider-card.openai .provider-badge { background: var(--openai-bg); color: var(--openai-color); border: 1px solid var(--openai-border); }
+  .provider-card h4 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .provider-card .role {
+    font-size: 13px;
+    color: var(--mid-text);
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+  .provider-card ul { list-style: none; }
+  .provider-card li {
+    font-size: 13.5px;
+    color: var(--mid-text);
+    padding: 5px 0;
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+    line-height: 1.45;
+  }
+  .provider-card li::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+  .provider-card.claude li::before { background: var(--claude-color); }
+  .provider-card.openai li::before { background: var(--openai-color); }
+
+  /* ══════════════ STRATEGY / INSIGHT ══════════════ */
+  .insight-box {
+    background: linear-gradient(135deg, #002F2E 0%, #014A49 100%);
+    border-radius: 10px;
+    padding: 38px 40px;
+    margin-top: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .insight-box::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 50%; height: 100%;
+    background: radial-gradient(ellipse at 90% 30%, rgba(202,200,13,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .insight-box .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .insight-box h4 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #FAF8F2;
+    margin-bottom: 14px;
+    line-height: 1.3;
+    position: relative;
+  }
+  .insight-box p {
+    font-size: 15.5px;
+    color: rgba(244,241,234,0.72);
+    line-height: 1.75;
+    max-width: 720px;
+    position: relative;
+  }
+  .insight-box p + p { margin-top: 14px; }
+  .insight-box strong { color: #FAF8F2; font-weight: 600; }
+
+  /* ══════════════ HOW-TO STRIP ══════════════ */
+  .howto {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 30px 34px;
+    margin-top: 8px;
+  }
+  .howto h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 18px;
+  }
+  .howto-steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 32px;
+  }
+  .howto-step { display: flex; gap: 14px; align-items: flex-start; }
+  .howto-step .n {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .howto-step p {
+    font-size: 14px;
+    color: var(--mid-text);
+    line-height: 1.55;
+  }
+  .howto-step p strong { color: var(--dark-text); }
+
+  /* ══════════════ FOOTER ══════════════ */
+  .page-footer {
+    background: var(--navy-deep);
+    color: rgba(244,241,234,0.5);
+    text-align: center;
+    padding: 28px;
+    font-size: 13px;
+    margin-top: 40px;
+  }
+  .page-footer strong { color: var(--warm); }
+  .footer-note {
+    font-size: 11.5px;
+    color: rgba(244,241,234,0.32);
+    margin-top: 6px;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 720px) {
+    .hero-topbar, .hero-rule, .hero-body { padding-left: 24px; padding-right: 24px; }
+    .hero-rule { margin-left: 24px; margin-right: 24px; }
+    .hero h1 { font-size: 32px; }
+    .rules-grid, .use-list, .provider-grid, .howto-steps { grid-template-columns: 1fr; }
+    .hero-eyes { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-topbar">
+    <div class="hero-wordmark"><span class="r">R</span>ational Root</div>
+    <div class="hero-title-block">
+      <div class="hero-doc-title">Voice Mode</div>
+      <div class="hero-doc-class">Field Note · Practical AI</div>
+    </div>
+  </div>
+  <hr class="hero-rule">
+  <div class="hero-body">
+    <h1>Put your spare cycles to work</h1>
+    <p><span class="hero-preface">A quick note, not a tidy framework — just sorting out an ad hoc notion as it struck. Don't expect it to be organized.</span> There are pockets of the day when your hands are busy but your mind is mostly free — the drive, the dishes, folding laundry, waiting in a queue, a walk to clear your head. Both Claude and ChatGPT can now hold a real spoken conversation in exactly those gaps. And unlike a podcast, it talks <em>back</em>.</p>
+    <div class="hero-eyes">// HANDS BUSY // MIND FREE</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- MORE THAN A PODCAST -->
+  <section class="section">
+    <span class="section-label">The Difference</span>
+    <h2 class="section-title">It's not a podcast — it talks back</h2>
+    <p class="section-subtitle">We're all used to filling these moments with something to <em>listen</em> to: a podcast, an audiobook, the radio. That's one-way. Voice mode is the opposite — it's a conversation. You think out loud, ask a question, change your mind, and it responds to <em>you</em>, in real time.</p>
+    <div class="prose">
+      <p>That small shift changes what the time is good for. A podcast pours information at you on its own schedule. A conversation lets you <strong>work something out</strong> — chase a half-formed idea, get a thing explained the way <em>you</em> need it, or talk a decision through until it's clear. The only new skill is being willing to speak rather than just listen.</p>
+    </div>
+  </section>
+
+  <!-- WHERE IT FITS -->
+  <section class="section tight">
+    <span class="section-label">Where It Fits</span>
+    <h2 class="section-title">The gaps where hands are busy but the mind is free</h2>
+    <p class="section-subtitle">Look for the low-attention stretches of your day — the tasks that run on autopilot and leave plenty of mental room spare. Those are the moments to talk.</p>
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-tick">&#10003;</div>
+        <div><h4>The long drive</h4><p>Open highway and light traffic, where driving is largely automatic and you'd otherwise reach for the radio.</p></div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-tick">&#10003;</div>
+        <div><h4>Housework &amp; chores</h4><p>Dishes, laundry, tidying, cooking — hands fully occupied, brain barely engaged. Talk while you work.</p></div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-tick">&#10003;</div>
+        <div><h4>Waiting &amp; queues</h4><p>The school pickup, the waiting room, the slow checkout. Turn dead time into something useful.</p></div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-tick">&#10003;</div>
+        <div><h4>A walk or errand</h4><p>A loop around the block to clear your head, or the walk to the shops — earbuds in, thinking out loud.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAFETY (DRIVING) -->
+  <section class="section tight">
+    <div class="safety-banner">
+      <div class="safety-icon">&#9888;</div>
+      <div>
+        <h3>A note on driving — safety first, always</h3>
+        <p>If the moment you're filling is behind the wheel, treat it exactly like a hands-free phone call. Set it up before you pull away, keep your eyes on the road and hands on the wheel, and stop talking the instant traffic, weather, or your own attention needs it. Driving is the task; the conversation is the passenger. If you couldn't safely take a phone call right then, this waits.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY THE CAR -->
+  <section class="section">
+    <span class="section-label">What To Do With It</span>
+    <h2 class="section-title">Good ways to spend the time</h2>
+    <p class="section-subtitle">Voice mode shows its key points on screen as it speaks, but you never need to look — it's built to be heard. Whatever the task in your hands, these are the conversations worth having while your mind is free.</p>
+    <div class="use-list">
+      <div class="use-card">
+        <div class="use-num">01</div>
+        <h4>Think a problem through</h4>
+        <p>Talk through a decision, a tricky email, or a plan. Saying it out loud and having something push back often unlocks what staring at a screen couldn't.</p>
+      </div>
+      <div class="use-card">
+        <div class="use-num">02</div>
+        <h4>Capture ideas before they vanish</h4>
+        <p>The shower-thought problem, solved. Dictate the idea, ask it to be tightened up, and arrive with notes already half-written.</p>
+      </div>
+      <div class="use-card">
+        <div class="use-num">03</div>
+        <h4>Learn on the move</h4>
+        <p>Ask for a plain-English explainer on anything — a concept, a company, a place you're curious about — and ask follow-ups like you would a knowledgeable companion.</p>
+      </div>
+      <div class="use-card">
+        <div class="use-num">04</div>
+        <h4>Prep for what's ahead</h4>
+        <p>Rehearse a pitch, warm up for a difficult conversation, or pre-brief a meeting so you walk in already clear on what you want to say.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TWO PROVIDERS -->
+  <section class="section">
+    <span class="section-label">Both Work</span>
+    <h2 class="section-title">Claude and ChatGPT both do this well</h2>
+    <p class="section-subtitle">Voice mode isn't unique to one provider. Anthropic's Claude and OpenAI's ChatGPT each offer a full spoken-conversation mode in their mobile apps, and both work well. Which one you reach for in the moment usually comes down to what you'd use it for the rest of the day.</p>
+    <div class="provider-grid">
+      <div class="provider-card claude">
+        <div class="provider-head">
+          <span class="provider-badge">Anthropic</span>
+          <h4>Claude</h4>
+        </div>
+        <p class="role">Where most of our clients do their <strong>work</strong> thinking.</p>
+        <ul>
+          <li>Strong at reasoning through work problems, writing, and structured thinking</li>
+          <li>Voice mode in the iOS and Android apps; switch between voice and text mid-conversation</li>
+          <li>The account we point clients to for professional and business use</li>
+        </ul>
+      </div>
+      <div class="provider-card openai">
+        <div class="provider-head">
+          <span class="provider-badge">OpenAI</span>
+          <h4>ChatGPT</h4>
+        </div>
+        <p class="role">Where most of our clients keep their <strong>personal</strong> life.</p>
+        <ul>
+          <li>Fluid, fast voice conversations that feel natural for everyday questions</li>
+          <li>Widely used for personal tasks, learning, hobbies, and family logistics</li>
+          <li>The account we suggest keeping separate from work, for personal use</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRATEGY -->
+  <section class="section tight">
+    <span class="section-label">Our Recommendation</span>
+    <h2 class="section-title">Keep a foot in each camp</h2>
+    <div class="prose">
+      <p>We tell clients the same thing: in these early days of AI tools, <strong>don't marry a single provider</strong>. Hold accounts with more than one — Anthropic, OpenAI, and the others worth watching — and use them deliberately for different jobs.</p>
+      <p>The pattern we see working is <strong>Claude for work, ChatGPT for personal</strong>. That isn't a rule about which is "better" — it's about keeping your professional and personal AI lives cleanly separated, and staying fluent in more than one tool while the landscape is still shifting under our feet.</p>
+    </div>
+    <div class="insight-box">
+      <div class="label">Why Two (Or More)</div>
+      <h4>The tools are moving fast — keep your options open</h4>
+      <p>Capabilities, pricing, and the lead between providers change month to month. Anchoring everything to one account means re-learning everything the day it falls behind. Keeping a live account on each major provider costs little and means you can always reach for the best tool for the task in front of you.</p>
+      <p>It also keeps a clean line between contexts: <strong>work conversations live in one place, personal ones in another</strong>. Separate accounts, separate histories, separate billing — and far less worry about what got mixed where.</p>
+    </div>
+  </section>
+
+  <!-- HOW TO -->
+  <section class="section tight">
+    <span class="section-label">Getting Started</span>
+    <h2 class="section-title">Set it up before your hands are full</h2>
+    <div class="howto">
+      <h3>Four steps to get talking</h3>
+      <div class="howto-steps">
+        <div class="howto-step">
+          <div class="n">1</div>
+          <p><strong>Open the app and find voice mode.</strong> In Claude, tap the sound-wave icon next to the microphone in the message bar. ChatGPT has an equivalent voice button.</p>
+        </div>
+        <div class="howto-step">
+          <div class="n">2</div>
+          <p><strong>Get the audio sorted.</strong> Pop in earbuds, or pair to a speaker or car audio via Bluetooth, so you can hear and be heard with the phone out of your hands.</p>
+        </div>
+        <div class="howto-step">
+          <div class="n">3</div>
+          <p><strong>Start before you're occupied.</strong> Open the conversation, then pick up the laundry or pull away. Don't go hunting for buttons once your hands are busy.</p>
+        </div>
+        <div class="howto-step">
+          <div class="n">4</div>
+          <p><strong>Keep it hands-off.</strong> Just talk, like someone's in the room with you. Let anything that needs the screen wait until you're free.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="page-footer">
+  <strong>Rational Root</strong> &middot; Field Note · Spare Cycles
+  <div class="footer-note">Voice mode availability, daily limits, and features vary by provider and plan, and change often. If you're driving, always follow local laws on phone and device use — and when in doubt, just drive.</div>
+</footer>
+
+</body>
+</html>
