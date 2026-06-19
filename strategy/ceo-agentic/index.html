@@ -2,132 +2,211 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>CEO Intro — Agentic / Claude Code Setup</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agentic Systems & Claude Code — Working Brief</title>
 <style>
   :root{
     --teal:#028482; --teal-deep:#002F2E; --teal-mid:#014A49;
     --chartreuse:#CAC80D; --paper:#F4F1EA; --bone:#FAF8F2;
-    --ink:#15201A; --muted:#4a5650;
+    --ink:#15201A; --muted:#566159; --line:#ddd6c8;
   }
   *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;background:var(--bone);color:var(--ink);
-    font-family:'Inter','Helvetica Neue',Arial,sans-serif;font-size:10.5px;line-height:1.4;}
-  .page{max-width:1000px;margin:0 auto;padding:22px 26px;}
-  header{display:flex;justify-content:space-between;align-items:flex-end;
-    border-bottom:3px solid var(--teal);padding-bottom:10px;margin-bottom:14px;}
-  header h1{margin:0;font-size:19px;color:var(--teal-deep);letter-spacing:-.2px;}
-  header .sub{font-size:10px;color:var(--muted);margin-top:3px;}
-  header .brand{font-size:11px;font-weight:700;color:var(--teal);text-align:right;}
-  header .brand span{display:block;font-weight:400;color:var(--muted);font-size:9px;}
-  .frame{background:var(--teal-deep);color:var(--bone);border-radius:6px;
-    padding:11px 14px;margin-bottom:14px;}
-  .frame b{color:var(--chartreuse);}
-  .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
-  h2{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--teal);
-    margin:0 0 5px;border-bottom:1px solid #d8d2c4;padding-bottom:3px;}
-  .beat{margin-bottom:9px;}
-  .beat .t{font-weight:700;color:var(--teal-deep);}
-  .beat p{margin:2px 0 0;color:var(--ink);}
-  ul{margin:3px 0 0;padding-left:15px;}
-  li{margin-bottom:3px;}
-  .pill{display:inline-block;background:var(--paper);border:1px solid var(--teal);
-    color:var(--teal-deep);border-radius:999px;padding:1px 9px;font-size:9px;
-    font-weight:600;margin:0 3px 3px 0;}
-  .callout{background:var(--paper);border-left:3px solid var(--chartreuse);
-    border-radius:6px;padding:9px 11px;margin-top:10px;}
-  .callout .lab{font-size:9px;text-transform:uppercase;letter-spacing:.5px;
-    color:var(--muted);font-weight:700;}
-  .quote{font-style:italic;color:var(--teal-deep);font-size:11px;margin-top:2px;}
+  html{font-size:clamp(13.5px,0.8vw,19px);}
+  body{margin:0;background:var(--bone);color:var(--ink);
+    font-family:'Inter','Helvetica Neue',Arial,sans-serif;line-height:1.42;
+    -webkit-font-smoothing:antialiased;}
+  a{color:var(--teal);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{padding:clamp(12px,1vw,26px);}
+
+  header.top{background:var(--teal-deep);color:var(--bone);border-radius:8px;
+    padding:clamp(16px,1.6vw,30px) clamp(18px,1.9vw,36px);
+    display:flex;justify-content:space-between;align-items:flex-end;gap:18px;
+    flex-wrap:wrap;margin-bottom:clamp(10px,0.7vw,22px);}
+  header.top h1{margin:0;font-size:clamp(20px,1.9vw,40px);letter-spacing:-.4px;line-height:1.08;}
+  header.top h1 b{color:var(--chartreuse);}
+  header.top .sub{margin-top:6px;font-size:clamp(11px,0.72vw,15px);color:#bcd4d0;max-width:62ch;}
+  header.top .brand{text-align:right;font-weight:800;font-size:clamp(12px,0.8vw,17px);
+    color:var(--chartreuse);letter-spacing:.5px;white-space:nowrap;}
+  header.top .brand span{display:block;font-weight:400;color:#bcd4d0;
+    font-size:clamp(9px,0.6vw,12px);letter-spacing:.3px;margin-top:3px;}
+
+  .deck{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,29rem),1fr));
+    gap:clamp(10px,0.7vw,22px);align-items:start;}
+  .full{grid-column:1 / -1;}
+
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:8px;
+    padding:clamp(13px,1vw,22px) clamp(15px,1.1vw,24px);}
+  .card h2{margin:0 0 7px;font-size:clamp(11px,0.74vw,14px);text-transform:uppercase;
+    letter-spacing:.7px;color:var(--teal);border-bottom:1px solid var(--line);padding-bottom:6px;}
+  .card h2 .n{color:var(--chartreuse);background:var(--teal-deep);border-radius:5px;
+    padding:1px 7px;margin-right:7px;font-size:.85em;}
+  .card p{margin:0 0 7px;}
+  .card p:last-child{margin-bottom:0;}
+  .card .t{font-weight:700;color:var(--teal-deep);}
+  ul{margin:4px 0 0;padding-left:1.1em;}
+  li{margin-bottom:5px;}
+  li b{color:var(--teal-deep);}
+
+  .band{background:var(--teal-mid);color:var(--bone);border-radius:8px;
+    padding:clamp(14px,1.2vw,26px) clamp(16px,1.4vw,30px);}
+  .band.hero{background:var(--teal-deep);}
+  .band .lab{font-size:clamp(9px,0.62vw,12px);text-transform:uppercase;letter-spacing:1px;
+    color:var(--chartreuse);font-weight:700;margin-bottom:5px;}
+  .band .big{font-size:clamp(16px,1.15vw,26px);font-weight:700;line-height:1.18;}
+  .band .big b{color:var(--chartreuse);}
+  .band p{margin:8px 0 0;color:#d7e3e0;font-size:clamp(11px,0.74vw,15px);}
+
+  .levels{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;}
+  .lv{flex:1 1 auto;background:var(--bone);border:1px solid var(--line);border-radius:6px;
+    padding:6px 9px;font-size:.86em;min-width:90px;}
+  .lv b{display:block;color:var(--teal);font-family:'IBM Plex Mono',monospace;font-size:.9em;}
+  .lv.hot{border-color:var(--chartreuse);background:#fbfbe6;}
+
+  .pillrow{margin-top:9px;}
+  .pill{display:inline-block;background:var(--bone);border:1px solid var(--teal);
+    color:var(--teal-deep);border-radius:999px;padding:2px 11px;font-size:.82em;
+    font-weight:600;margin:0 4px 4px 0;}
+
+  .quote{font-style:italic;color:var(--teal-deep);font-size:clamp(13px,0.92vw,19px);
+    line-height:1.32;border-left:3px solid var(--chartreuse);padding-left:12px;}
   .num{font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--teal);}
-  footer{margin-top:14px;border-top:1px solid #d8d2c4;padding-top:7px;
-    font-size:9px;color:var(--muted);display:flex;justify-content:space-between;}
-  @media print{body{background:#fff;}.page{padding:0;} @page{margin:14mm;}}
+
+  .refs{columns:2;column-gap:24px;}
+  .refs .r{break-inside:avoid;margin-bottom:9px;}
+  .refs .r .t{display:block;font-weight:700;color:var(--teal-deep);font-size:.92em;}
+  .refs .r .d{font-size:.85em;color:var(--muted);}
+
+  footer{margin-top:clamp(10px,0.7vw,20px);padding:10px 4px 0;border-top:1px solid var(--line);
+    font-size:clamp(9px,0.6vw,12px);color:var(--muted);display:flex;
+    justify-content:space-between;flex-wrap:wrap;gap:8px;}
+
+  @media (max-width:640px){
+    .refs{columns:1;}
+    header.top{flex-direction:column;align-items:flex-start;}
+    header.top .brand{text-align:left;}
+  }
+  @media print{body{background:#fff;} .wrap{padding:0;} @page{margin:12mm;}
+    .card,.band{break-inside:avoid;}}
 </style>
 </head>
 <body>
-<div class="page">
-  <header>
+<div class="wrap">
+
+  <header class="top">
     <div>
-      <h1>First Intro — Agentic / Claude Code Setup</h1>
-      <div class="sub">CEO conversation · talking points · informed by Nate B. Jones (Feb–Apr 2026)</div>
+      <h1>Agentic Systems &amp; <b>Claude Code</b> — A Working Brief</h1>
+      <div class="sub">Strategic foundations for an enterprise agentic build. Working notes — what these systems already do, where the value is, and how a serious rollout actually goes. Grounded in 50+ deep working sessions on agentic harnesses since they launched (Feb 2026).</div>
     </div>
-    <div class="brand">RATIONAL ROOT<span>Kevin Kraliz</span></div>
+    <div class="brand">RATIONAL ROOT<span>Kevin Kraliz · June 2026</span></div>
   </header>
 
-  <div class="frame">
-    THE FRAME &nbsp;—&nbsp; <b>"The technology is ready. The project is your organization."</b>
-    My job is to close the gap between what these systems already do and how your business actually runs.
-  </div>
+  <div class="deck">
 
-  <div class="cols">
-    <div>
-      <h2>The conversation arc</h2>
-
-      <div class="beat"><span class="t">1 · The stakes — the compounding gap</span>
-        <p>Advantages compound: memory, context, redesigned workflows. 2026 is the window to build the moat — you can't backfill accumulated context later.</p></div>
-
-      <div class="beat"><span class="t">2 · Reset expectations — the J-curve</span>
-        <p>Most rollouts bolt AI onto old workflows: people feel faster while going slower. Winners redesign the workflow around the agent. Say this early so a dip doesn't kill the pilot.</p></div>
-
-      <div class="beat"><span class="t">3 · The real bottleneck — specification</span>
-        <p>Models aren't the limit; clear problem-framing is. The new executive skill is problem-finding. Your judgment becomes the differentiator the setup scales.</p></div>
-
-      <div class="beat"><span class="t">4 · What "agentic" means for you</span>
-        <p>Not a chatbot — agents that do multi-step work across your real tools and data. The moat is <i>your</i> proprietary context wired in. "80% plumbing, 20% AI."</p></div>
-
-      <div class="callout">
-        <div class="lab">Maturity map — Five Levels of AI Coding</div>
-        <p style="margin:3px 0 0;">L0 autocomplete · L1 intern · L2 junior dev · L3 dev-as-manager · L4 dev-as-PM · L5 dark factory. <b>~90% plateau at L2; most stall at L3.</b> The climb is organizational, not technical.</p>
-      </div>
+    <div class="band hero full">
+      <div class="lab">The frame</div>
+      <div class="big">"The technology is ready. The project is your <b>organization</b>."</div>
+      <p>The job isn't installing AI. It's closing the gap between what these systems already do and how the business actually runs. Everything below supports that one idea.</p>
     </div>
 
-    <div>
+    <div class="card">
+      <h2><span class="n">1</span>The stakes — the compounding gap</h2>
+      <p>The naive story is "AI makes everyone a bit more productive." The real story is that advantages <span class="t">compound</span> — accumulated memory, context, and redesigned workflows pull fast movers away from slow ones.</p>
+      <p>2026 is the window. The moat is accumulated context, and you can't backfill it overnight.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="n">2</span>Reset expectations — the J-curve</h2>
+      <p>Most rollouts fail the same way: they bolt AI onto existing workflows, and people <span class="t">feel faster while measurably going slower.</span></p>
+      <p>The teams that win <span class="t">redesign the workflow around the agent</span> — specs, review, roles — not drop a tool on yesterday's process. Name the dip early so no one pulls the plug at the bottom.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="n">3</span>The real bottleneck — specification</h2>
+      <p>Models aren't the limit; <span class="t">clear problem-framing</span> is. The new executive skill is problem-finding — knowing which problem deserves solving and specifying it cleanly.</p>
+      <p>Your judgment and your team's taste become the differentiator the system scales.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="n">4</span>What "agentic" actually means</h2>
+      <p>Not a chatbot. <span class="t">Agents that do multi-step work</span> across your real tools and data — read the source, run the analysis, draft the deliverable, hand back for judgment.</p>
+      <p>The moat is <span class="t">your proprietary context</span> wired in. Building agents is "80% plumbing, 20% AI" — and the plumbing is where the defensibility lives.</p>
+    </div>
+
+    <div class="card">
+      <h2>Maturity map — Five Levels of AI work</h2>
+      <div class="levels">
+        <div class="lv"><b>L0</b>autocomplete</div>
+        <div class="lv"><b>L1</b>intern</div>
+        <div class="lv hot"><b>L2</b>junior — ~90% plateau here</div>
+        <div class="lv hot"><b>L3</b>you-as-manager — most stall</div>
+        <div class="lv"><b>L4</b>you-as-PM (spec &amp; review)</div>
+        <div class="lv"><b>L5</b>"dark factory"</div>
+      </div>
+      <p style="margin-top:9px;">The climb is <span class="t">organizational, not technological.</span> What stops teams isn't model quality — it's the willingness to move from doing the work to specifying it.</p>
+    </div>
+
+    <div class="card">
       <h2>The honest asks</h2>
       <ul>
-        <li><b>2–3 real workflows</b> with a clear definition of "good" so we can build evaluations — not vibes.</li>
-        <li><b>Willingness to redesign,</b> not bolt on. Biggest ROI lever; only you can authorize it.</li>
+        <li><b>2–3 real workflows</b> with a clear definition of "good," so we can build evaluations — not vibes.</li>
+        <li><b>Willingness to redesign,</b> not bolt on. Biggest ROI lever; only leadership can authorize it.</li>
         <li><b>Pay for the frontier model.</b> Cheaping out is false economy across an agent chain.</li>
         <li><b>Patience to iterate.</b> Workflows have a short half-life — ship small, measure, rebuild.</li>
       </ul>
+    </div>
 
-      <h2 style="margin-top:11px;">What you get</h2>
+    <div class="card">
+      <h2>What you get</h2>
       <ul>
-        <li>Best people moved off "tokenizable" grunt work onto judgment &amp; relationships.</li>
-        <li>A compounding asset — every workflow accumulates context and gets more valuable.</li>
+        <li>Best people moved off "tokenizable" grunt work onto judgment and relationships.</li>
+        <li>A <b>compounding asset</b> — every workflow accumulates context and grows more valuable.</li>
         <li>A defensible lead while the window is open.</li>
       </ul>
-
-      <div style="margin-top:10px;">
-        <span class="pill">agent literacy = skill of 2026</span>
+      <div class="pillrow">
+        <span class="pill">agent literacy = the skill of 2026</span>
         <span class="pill">steer vs. dispatch</span>
         <span class="pill">memory is the moat</span>
         <span class="pill">spec &gt; speed</span>
       </div>
+    </div>
 
-      <div class="callout">
-        <div class="lab">One quote to drop</div>
-        <p class="quote">"AI solves well-specified problems with increasing fluency. Specifying the right problem remains very, very human."</p>
-      </div>
+    <div class="card">
+      <h2>Two things to land in the room</h2>
+      <p class="quote">"AI solves well-specified problems with increasing fluency. Specifying the right problem remains very, very human."</p>
+      <p style="margin-top:11px;"><span class="num">19% slower</span> while feeling <span class="num">24% faster</span> (METR study) — the J-curve, made real. It reframes the leader's role and makes you the trustworthy guide.</p>
+    </div>
 
-      <div class="callout">
-        <div class="lab">One number to drop</div>
-        <p style="margin:2px 0 0;"><span class="num">19% slower</span> while feeling <span class="num">24% faster</span> (METR) — the J-curve, made real.</p>
+    <div class="card">
+      <h2>Proof it's real — the "dark factory"</h2>
+      <p>A real security company (StrongDM) ships production software with <span class="t">3 engineers</span>: agents write, test, and ship; no human writes or reviews code. Humans write the spec, curate test scenarios, watch the scores.</p>
+      <p>Repo = three markdown spec files; an agent builds against them; a "digital twin" of every external service (fake Okta, Slack, Drive) enables full testing without touching production. Output: a live product, ~16k lines of Rust + 9.5k Go.</p>
+      <p><span class="t">The tell:</span> humans didn't vanish — they moved up to spec and judgment. They got there by redesigning everything, not installing a tool. <i>Your path is a climb, not a switch.</i></p>
+    </div>
+
+    <div class="card full">
+      <h2>Foundations &amp; sources</h2>
+      <div class="refs">
+        <div class="r"><span class="t"><a href="https://docs.claude.com/" target="_blank" rel="noopener">Anthropic / Claude documentation</a></span><span class="d">Claude Code, the Agent SDK, and agentic harness primitives — the platform this build runs on.</span></div>
+        <div class="r"><span class="t"><a href="https://platform.openai.com/docs" target="_blank" rel="noopener">OpenAI documentation</a></span><span class="d">Cross-referenced for agent patterns and to keep the design vendor-aware, not vendor-locked.</span></div>
+        <div class="r"><span class="t">50+ agentic-harness working sessions</span><span class="d">Hands-on practitioner depth since harnesses launched in February 2026 — what actually holds up in production vs. demos.</span></div>
+        <div class="r"><span class="t"><a href="https://www.youtube.com/@NateBJones" target="_blank" rel="noopener">Nate B. Jones — AI News &amp; Strategy Daily</a></span><span class="d">Five Levels, compounding gap, J-curve, agent literacy, Frontier Operations (Feb–Apr 2026).</span></div>
+        <div class="r"><span class="t"><a href="https://simonwillison.net/2026/Feb/7/software-factory/" target="_blank" rel="noopener">StrongDM "software factory"</a></span><span class="d">The canonical L5 dark-factory case study.</span></div>
+        <div class="r"><span class="t">METR developer-productivity study</span><span class="d">The 19%-slower / 24%-faster finding behind the J-curve.</span></div>
       </div>
     </div>
-  </div>
 
-  <div class="callout" style="margin-top:14px;border-left-color:var(--teal);">
-    <div class="lab">Proof it's real — StrongDM's "dark factory" (the L5 ceiling)</div>
-    <p style="margin:3px 0 0;">A real security company ships production software with <b>3 engineers</b>: agents write, test &amp; ship; <b>no human writes or reviews code.</b> Humans write the spec, curate test scenarios, watch the scores. Repo = 3 markdown spec files; an agent ("Attractor") builds against them; a "Digital Twin Universe" (fake Okta/Jira/Slack/Drive) enables full testing without touching production. Output: a live product, ~16k lines Rust + 9.5k Go. <b>The tell:</b> humans didn't vanish — they moved up to spec &amp; judgment. They got there by redesigning everything, not installing a tool. <i>Your path is a climb, not a switch — start small, prove it, ascend the levels.</i></p>
-  </div>
+    <div class="band full">
+      <div class="lab">The close</div>
+      <div class="big">"Let's find <b>two or three places</b> where your team's judgment is bottlenecked by busywork, wire agents into your real systems, and prove it with numbers in a few weeks."</div>
+      <p>If it works, we expand. If it doesn't, you've spent a little and learned a lot. Fair?</p>
+    </div>
 
-  <div class="frame" style="margin-top:14px;background:var(--teal-mid);">
-    THE CLOSE &nbsp;—&nbsp; "I don't want to sell you a tool. Let's find two or three places where your team's judgment is bottlenecked by busywork, wire agents into your real systems, and <b>prove it with numbers in a few weeks.</b> If it works, we expand. If not, you've spent a little and learned a lot. Fair?"
   </div>
 
   <footer>
-    <span>Rational Root · prepared for CEO intro</span>
-    <span>Sources: Nate B. Jones — AI News &amp; Strategy Daily (Feb–Apr 2026); METR developer study</span>
+    <span>Rational Root · Kevin Kraliz · working brief</span>
+    <span>Sources: Nate B. Jones (Feb–Apr 2026) · METR · StrongDM · Anthropic &amp; OpenAI docs</span>
   </footer>
 </div>
 </body>
