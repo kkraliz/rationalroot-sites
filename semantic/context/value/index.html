@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Judgment Is the Asset — Capturing the Thinking That Would Otherwise Evaporate</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --navy: #002F2E;
+    --navy-deep: #001A19;
+    --navy-mid: #014A49;
+    --steel: #828883;
+    --accent: #028482;
+    --accent-light: rgba(2,132,130,0.08);
+    --light-bg: #F4F1EA;
+    --card-bg: #FAF8F2;
+    --warm: #CAC80D;
+    --warm-light: #FAF8DD;
+    --dark-text: #15201A;
+    --mid-text: #4D544F;
+    --white: #FFFFFF;
+    --border: #E8E6E1;
+    --shadow: 0 1px 2px rgba(0,0,0,0.04), 0 1px 1px rgba(0,0,0,0.02);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, system-ui, -apple-system, sans-serif;
+    color: var(--dark-text);
+    background: var(--light-bg);
+    line-height: 1.6;
+  }
+
+  /* ══════════════ HERO ══════════════ */
+  .hero {
+    background: linear-gradient(160deg, #001A19 0%, #002F2E 40%, #014A49 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(2,132,130,0.03) 3px, rgba(2,132,130,0.03) 4px);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 45%; height: 100%;
+    background: radial-gradient(ellipse at 80% 40%, rgba(2,132,130,0.14) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 48px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-wordmark {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    color: #FAF8F2;
+  }
+  .hero-wordmark .r { color: var(--warm); }
+  .hero-title-block { text-align: right; }
+  .hero-doc-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--warm);
+    line-height: 1;
+  }
+  .hero-doc-class {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(202,200,13,0.45);
+    margin-top: 4px;
+  }
+  .hero-rule {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(202,200,13,0.4) 0%, rgba(2,132,130,0.2) 60%, transparent 100%);
+    margin: 24px 48px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-body {
+    padding: 48px 48px 60px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 {
+    font-size: 44px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #FAF8F2;
+    line-height: 1.12;
+    margin-bottom: 18px;
+    max-width: 780px;
+  }
+  .hero p {
+    font-size: 17px;
+    color: rgba(244,241,234,0.62);
+    line-height: 1.6;
+    max-width: 680px;
+  }
+  .hero p .lead { color: rgba(244,241,234,0.85); font-weight: 500; }
+  .hero-eyes {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(202,200,13,0.18);
+    position: absolute;
+    bottom: 16px;
+    right: 48px;
+    z-index: 1;
+  }
+
+  /* ══════════════ CONTAINER / SECTION ══════════════ */
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .section { padding: 56px 0; }
+  .section.tight { padding-top: 26px; }
+  .section-label {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+  .section-subtitle {
+    font-size: 16px;
+    color: var(--mid-text);
+    margin-bottom: 36px;
+    line-height: 1.7;
+    max-width: 720px;
+  }
+  .prose p {
+    font-size: 16px;
+    color: var(--mid-text);
+    line-height: 1.78;
+    margin-bottom: 18px;
+    max-width: 740px;
+  }
+  .prose p strong { color: var(--dark-text); font-weight: 600; }
+
+  /* ══════════════ THE LOOP — 3 STEPS ══════════════ */
+  .loop {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 18px;
+    margin-top: 8px;
+    position: relative;
+  }
+  .loop-step {
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--accent);
+    padding: 26px 26px 24px;
+    box-shadow: var(--shadow);
+    position: relative;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .loop-step:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+  .loop-step .step-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .loop-step h4 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .loop-step p {
+    font-size: 14px;
+    color: var(--mid-text);
+    line-height: 1.6;
+  }
+  .loop-step .arrow {
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent);
+    font-size: 20px;
+    font-weight: 700;
+    z-index: 3;
+    opacity: 0.5;
+  }
+  .loop-step:last-child .arrow { display: none; }
+
+  /* ══════════════ ASSET CALLOUT ══════════════ */
+  .asset-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 8px;
+  }
+  .asset-col {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 26px 28px;
+  }
+  .asset-col h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .asset-col .tagline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .asset-col.lost .tagline { background: rgba(184,134,11,0.12); color: #8a6508; border: 1px solid rgba(184,134,11,0.3); }
+  .asset-col.kept .tagline { background: var(--accent-light); color: var(--accent); border: 1px solid rgba(2,132,130,0.22); }
+  .asset-col ul { list-style: none; }
+  .asset-col li {
+    font-size: 14px;
+    color: var(--mid-text);
+    padding: 5px 0;
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+  .asset-col li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
+  .asset-col.lost li::before { background: #b8860b; }
+  .asset-col.kept li::before { background: var(--accent); }
+
+  /* ══════════════ WIRING (PWA) ══════════════ */
+  .wiring {
+    background: linear-gradient(135deg, #002F2E 0%, #014A49 100%);
+    border-radius: 10px;
+    padding: 36px 40px;
+    margin-top: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .wiring::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 50%; height: 100%;
+    background: radial-gradient(ellipse at 90% 30%, rgba(202,200,13,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .wiring .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .wiring h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #FAF8F2;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .wiring .intro {
+    font-size: 15px;
+    color: rgba(244,241,234,0.7);
+    line-height: 1.7;
+    max-width: 700px;
+    margin-bottom: 26px;
+    position: relative;
+  }
+  .wire-flow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: stretch;
+    position: relative;
+  }
+  .wire-node {
+    flex: 1 1 0;
+    min-width: 150px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(2,132,130,0.3);
+    border-radius: 8px;
+    padding: 16px 16px 14px;
+    position: relative;
+  }
+  .wire-node .n-step {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--warm);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .wire-node h5 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #FAF8F2;
+    margin-bottom: 4px;
+  }
+  .wire-node p {
+    font-size: 12px;
+    color: rgba(244,241,234,0.6);
+    line-height: 1.5;
+  }
+  .wire-arrow {
+    display: flex;
+    align-items: center;
+    color: rgba(202,200,13,0.5);
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .wiring .footnote {
+    font-size: 13px;
+    color: rgba(244,241,234,0.55);
+    line-height: 1.65;
+    margin-top: 24px;
+    max-width: 720px;
+    position: relative;
+  }
+  .wiring .footnote strong { color: rgba(244,241,234,0.85); font-weight: 600; }
+
+  /* ══════════════ SOLO CALLOUT ══════════════ */
+  .solo-callout {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 26px 30px;
+    margin-top: 18px;
+  }
+  .solo-callout h4 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .solo-callout > p {
+    font-size: 14.5px;
+    color: var(--mid-text);
+    line-height: 1.65;
+    max-width: 760px;
+    margin-bottom: 18px;
+  }
+  .solo-points {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .solo-point .pk {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .solo-point p {
+    font-size: 13px;
+    color: var(--mid-text);
+    line-height: 1.5;
+  }
+
+  /* ══════════════ START TODAY ══════════════ */
+  .today-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 8px;
+  }
+  .today-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px 26px;
+    box-shadow: var(--shadow);
+  }
+  .today-card .k {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .today-card h4 { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .today-card p { font-size: 14px; color: var(--mid-text); line-height: 1.6; }
+
+  /* ══════════════ CTA ══════════════ */
+  .cta-box {
+    background: var(--warm-light);
+    border: 1px solid rgba(202,200,13,0.4);
+    border-left: 4px solid var(--warm);
+    border-radius: 10px;
+    padding: 34px 38px;
+    margin-top: 8px;
+  }
+  .cta-box .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #8a8800;
+    margin-bottom: 12px;
+  }
+  .cta-box h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 12px;
+    line-height: 1.25;
+  }
+  .cta-box p {
+    font-size: 15.5px;
+    color: #4a4a1f;
+    line-height: 1.7;
+    max-width: 700px;
+  }
+  .cta-box p + p { margin-top: 12px; }
+  .cta-box strong { color: var(--navy); font-weight: 600; }
+
+  /* ══════════════ BACKLINK ══════════════ */
+  .backlink {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid rgba(2,132,130,0.25);
+    border-radius: 6px;
+    padding: 10px 16px;
+    transition: background 0.2s;
+    margin-top: 28px;
+  }
+  .backlink:hover { background: var(--accent-light); }
+
+  /* ══════════════ FOOTER ══════════════ */
+  .page-footer {
+    background: var(--navy-deep);
+    color: rgba(244,241,234,0.5);
+    text-align: center;
+    padding: 28px;
+    font-size: 13px;
+    margin-top: 44px;
+  }
+  .page-footer strong { color: var(--warm); }
+  .footer-note {
+    font-size: 11.5px;
+    color: rgba(244,241,234,0.32);
+    margin-top: 6px;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 760px) {
+    .hero-topbar, .hero-rule, .hero-body { padding-left: 24px; padding-right: 24px; }
+    .hero-rule { margin-left: 24px; margin-right: 24px; }
+    .hero h1 { font-size: 32px; }
+    .loop, .asset-strip, .today-grid { grid-template-columns: 1fr; }
+    .solo-points { grid-template-columns: 1fr 1fr; }
+    .loop-step .arrow { display: none; }
+    .wire-flow { flex-direction: column; }
+    .wire-arrow { transform: rotate(90deg); justify-content: center; }
+    .hero-eyes { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-topbar">
+    <div class="hero-wordmark"><span class="r">R</span>ational Root</div>
+    <div class="hero-title-block">
+      <div class="hero-doc-title">Context Capture</div>
+      <div class="hero-doc-class">Field Note · Practical AI</div>
+    </div>
+  </div>
+  <hr class="hero-rule">
+  <div class="hero-body">
+    <h1>Your judgment is the asset. Capture all of it.</h1>
+    <p><span class="lead">As a leader, your thinking is the product.</span> The best of it often arrives away from the keyboard — in the car, on a walk, in the gap between two meetings. Capture it the moment it lands and surface it inside the AI you already use, so it's there whenever you need it. It isn't a tooling project — the whole loop stands up in about an hour.</p>
+    <div class="hero-eyes">// THINK // CAPTURE // KEEP // USE</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- THE PREMISE -->
+  <section class="section">
+    <span class="section-label">The Premise</span>
+    <h2 class="section-title">Your best thinking happens where you can't write it down</h2>
+    <div class="prose">
+      <p>You don't need convincing that AI is useful. What stops most leaders is the setup tax — the sense that getting value means learning a stack of agentic tooling before anything comes back. So the easiest first win is the one that asks nothing of you and returns something immediately.</p>
+      <p>Here it is: <strong>your unstructured thinking is where a lot of your value lives</strong> — the call you replayed on the drive home, the strategy that clicked mid-run, the thing you finally understood about a person or a deal while doing something else entirely. It's real work. The only reason it doesn't compound is timing: it arrives while your hands and eyes are busy and there's nothing to write on. Remove that one bottleneck and all of it becomes capturable.</p>
+      <p>Speaking does exactly that. You can already <em>talk</em> these thoughts out — to Claude, to ChatGPT, into a voice note. The question this page answers is what happens <strong>after</strong> you speak.</p>
+    </div>
+  </section>
+
+  <!-- THE LOOP -->
+  <section class="section tight">
+    <span class="section-label">The Pattern</span>
+    <h2 class="section-title">Capture → Keep → Draw on</h2>
+    <p class="section-subtitle">The whole idea in three moves. It's tool-agnostic — you can run a rough version today with a phone and an AI assistant, and a polished version when you want one. What matters is that the loop closes.</p>
+    <div class="loop">
+      <div class="loop-step">
+        <div class="step-num">01 — CAPTURE</div>
+        <h4>Speak the thought</h4>
+        <p>Hands-free, in the moment it arrives. No typing, no opening a doc — just say it out loud while it's still sharp.</p>
+        <span class="arrow">&rarr;</span>
+      </div>
+      <div class="loop-step">
+        <div class="step-num">02 — KEEP</div>
+        <h4>Turn it into text that lasts</h4>
+        <p>The audio becomes a transcript and is stored — not a voice memo you'll never replay, but searchable words your tools can read.</p>
+        <span class="arrow">&rarr;</span>
+      </div>
+      <div class="loop-step">
+        <div class="step-num">03 — DRAW ON</div>
+        <h4>Put it to work later</h4>
+        <p>Weeks on, ask your AI "what did I think about this?" and it answers from your own words — drafting, reminding, briefing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY KEEP -->
+  <section class="section">
+    <span class="section-label">Why "Keep" Is the Whole Point</span>
+    <h2 class="section-title">A voice memo is a graveyard. A transcript is memory.</h2>
+    <p class="section-subtitle">Most capture tools stop at step one — you record, and the recording sits unheard forever. The value is entirely in keeping it as text an AI can read, so a passing thought becomes durable context you can summon on demand.</p>
+    <div class="asset-strip">
+      <div class="asset-col lost">
+        <h4>Capture only <span class="tagline">Lost</span></h4>
+        <ul>
+          <li>A folder of voice memos you'll never scroll back through</li>
+          <li>Notes scattered across apps, none of them searchable together</li>
+          <li>The insight is technically saved, but practically gone</li>
+        </ul>
+      </div>
+      <div class="asset-col kept">
+        <h4>Capture + keep <span class="tagline">Compounding</span></h4>
+        <ul>
+          <li>Every thought becomes searchable text in one place</li>
+          <li>Your AI drafts the memo in your own words and framing</li>
+          <li>"What did I say about Atlas last month?" gets a real answer</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE END-STATE: PWA -->
+  <section class="section tight">
+    <span class="section-label">What "Polished" Looks Like</span>
+    <h2 class="section-title">A purpose-built version of the loop</h2>
+    <p class="section-subtitle">To show what the end-state can be, here's the one I run for myself every day — a small app on the home screen that quietly does all three steps. You speak; the memory builds itself.</p>
+    <div class="wiring">
+      <div class="label">Context Capture · How It's Wired</div>
+      <h3>Talk into it. It does the rest.</h3>
+      <p class="intro">An app added to the iPhone home screen. Tap, talk, tag it in a word, done. From there it runs on its own — no files to manage, nothing to organise. Each step hands cleanly to the next.</p>
+      <div class="wire-flow">
+        <div class="wire-node">
+          <div class="n-step">Capture</div>
+          <h5>Speak &amp; tag</h5>
+          <p>One tap records; a chip tags it by client, project, or topic. Hands-free, sticky across notes.</p>
+        </div>
+        <div class="wire-arrow">&rarr;</div>
+        <div class="wire-node">
+          <div class="n-step">Transcribe</div>
+          <h5>Auto to text</h5>
+          <p>The audio is transcribed automatically and the recording is discarded — the words are the asset, not the file.</p>
+        </div>
+        <div class="wire-arrow">&rarr;</div>
+        <div class="wire-node">
+          <div class="n-step">Keep</div>
+          <h5>Stored &amp; searchable</h5>
+          <p>Transcripts live in one queryable store, tagged and dated, backed up where your other documents already are.</p>
+        </div>
+        <div class="wire-arrow">&rarr;</div>
+        <div class="wire-node">
+          <div class="n-step">Draw on</div>
+          <h5>Any AI can read it</h5>
+          <p>Claude, Copilot, or whatever you use can search your captured thinking and answer from it on demand.</p>
+        </div>
+      </div>
+      <p class="footnote"><strong>The point isn't the technology.</strong> It's that once it's wired, the leader does exactly one thing — talk — and a private, searchable record of their own judgment accumulates in the background, ready whenever it's needed.</p>
+    </div>
+
+    <div class="solo-callout">
+      <h4>Built for one — on purpose</h4>
+      <p>This isn't a platform with accounts and seats. It's a single-person app: <strong>just you</strong>. That's a deliberate design choice, and it's where a lot of the advantage comes from — the whole thing stays simple, cheap, and entirely yours.</p>
+      <div class="solo-points">
+        <div class="solo-point">
+          <div class="pk">Free</div>
+          <p>One user fits comfortably inside free tiers — no subscription, no per-seat cost.</p>
+        </div>
+        <div class="solo-point">
+          <div class="pk">Private</div>
+          <p>Your thinking is yours alone. Nothing is pooled, shared, or mixed with anyone else's data.</p>
+        </div>
+        <div class="solo-point">
+          <div class="pk">Secure</div>
+          <p>A single-user surface is a small one — far less to expose, far less to defend.</p>
+        </div>
+        <div class="solo-point">
+          <div class="pk">Focused</div>
+          <p>Your AI works for you and only you — no other users to account for, no compromises.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- START TODAY -->
+  <section class="section">
+    <span class="section-label">Start Today</span>
+    <h2 class="section-title">You don't need the app to begin</h2>
+    <p class="section-subtitle">The pattern works right now with tools you already have. Run the rough version this week; graduate to a purpose-built one when it earns its place.</p>
+    <div class="today-grid">
+      <div class="today-card">
+        <div class="k">Rough version · today</div>
+        <h4>Voice + an AI that remembers</h4>
+        <p>Speak your thoughts into Claude or ChatGPT's voice mode, or a voice note, and let your AI assistant keep and resurface them. Zero setup, value on day one.</p>
+      </div>
+      <div class="today-card">
+        <div class="k">Polished version · ~1 hour</div>
+        <h4>A capture loop wired for you</h4>
+        <p>A home-screen app like Context Capture — talk, auto-transcribe, store, and make it queryable by every AI you use. Built and live in about an hour.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section tight">
+    <div class="cta-box">
+      <div class="label">The Offer</div>
+      <h3>We can build this in an hour</h3>
+      <p>That's the part worth underlining. A capture loop wired to your own tools — speak, keep, and draw on your thinking from anywhere — isn't a months-long agentic project. The pattern is simple, and a purpose-built version can be standing on your phone, working, by the end of a single sitting.</p>
+      <p>Start with the rough version this week to feel the value. When you're ready for the polished one — tagged, searchable, connected to the AI you already use — <strong>that's an hour of setup, not a transformation programme.</strong></p>
+    </div>
+    <a class="backlink" href="/context/voice/">&larr; Start with the capture habit</a>
+  </section>
+
+</div>
+
+<footer class="page-footer">
+  <strong>Rational Root</strong> &middot; Field Note · Context &amp; Value
+  <div class="footer-note">Tools, availability, and limits change often. The pattern — capture, keep, draw on — outlasts any specific app. Context Capture is the author's own daily system, shown here as one way to wire the loop.</div>
+</footer>
+
+</body>
+</html>
