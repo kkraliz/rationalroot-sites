@@ -509,6 +509,41 @@
   }
   .howto-step p strong { color: var(--dark-text); }
 
+  /* ══════════════ SILO ROW ══════════════ */
+  .silo-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 8px;
+  }
+  .silo-chip {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 20px;
+  }
+  .silo-chip .sk {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .silo-chip h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .silo-chip p { font-size: 13px; color: var(--mid-text); line-height: 1.5; }
+  .silo-link { margin-top: 20px; font-size: 14px; }
+  .silo-link a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(2,132,130,0.3);
+    padding-bottom: 1px;
+    transition: border-color 0.2s;
+  }
+  .silo-link a:hover { border-bottom-color: var(--accent); }
+
   /* ══════════════ FORWARD LINK ══════════════ */
   .fwdlink-wrap {
     padding: 8px 0 12px;
@@ -563,7 +598,7 @@
     .hero h1 { font-size: 32px; }
     .hero-body { flex-direction: column; gap: 24px; }
     .hero-stats { width: 100%; }
-    .rules-grid, .use-list, .provider-grid, .howto-steps { grid-template-columns: 1fr; }
+    .rules-grid, .use-list, .provider-grid, .howto-steps, .silo-row { grid-template-columns: 1fr; }
     .hero-eyes { display: none; }
   }
 </style>
@@ -748,6 +783,35 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- THE CATCH -->
+  <section class="section tight">
+    <span class="section-label">The Catch</span>
+    <h2 class="section-title">Voice mode lives in chat — and chat is its own silo</h2>
+    <p class="section-subtitle">When you open voice mode in the Claude or ChatGPT app, you're talking to <strong>chat</strong>. What you say is captured there — but it largely stays there.</p>
+    <div class="prose">
+      <p>Every place you use AI keeps its own memory, and they don't share. Claude's chat builds a memory across your conversations, refreshed roughly once a day — but that lives in the chat apps: web, desktop, and mobile, including voice. It doesn't automatically reach <strong>Claude Code</strong>, which works from its own instruction files and notes, or a <strong>Cowork</strong> workspace, which keeps its own memory. ChatGPT works the same way inside OpenAI's world.</p>
+      <p>So speaking gets the thought out of your head — good — but it's parked in one app's chat history. To make it useful everywhere your agents actually do work, it has to be <strong>piped into a memory they can all read</strong>.</p>
+    </div>
+    <div class="silo-row">
+      <div class="silo-chip">
+        <div class="sk">Chat</div>
+        <h4>Where voice lands</h4>
+        <p>Cross-chat memory, refreshed daily — but it stays inside the chat apps.</p>
+      </div>
+      <div class="silo-chip">
+        <div class="sk">Cowork</div>
+        <h4>Its own memory</h4>
+        <p>Keeps a separate, file-based memory and reads its own instructions.</p>
+      </div>
+      <div class="silo-chip">
+        <div class="sk">Code</div>
+        <h4>Its own files</h4>
+        <p>Runs off its own instruction files and notes — chat memory doesn't surface here.</p>
+      </div>
+    </div>
+    <p class="silo-link"><a href="https://semantic.rationalroot.com/guide/">See how memory works across the three types of Claude &rarr;</a></p>
   </section>
 
   <div class="fwdlink-wrap">
