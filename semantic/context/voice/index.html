@@ -533,16 +533,31 @@
   }
   .silo-chip h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
   .silo-chip p { font-size: 13px; color: var(--mid-text); line-height: 1.5; }
-  .silo-link { margin-top: 20px; font-size: 14px; }
+  .silo-link { margin-top: 22px; }
   .silo-link a {
-    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
     font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    border: 1px solid rgba(2,132,130,0.22);
+    border-radius: 6px;
+    padding: 12px 18px;
     text-decoration: none;
-    border-bottom: 1px solid rgba(2,132,130,0.3);
-    padding-bottom: 1px;
-    transition: border-color 0.2s;
+    transition: background 0.2s, transform 0.2s;
   }
-  .silo-link a:hover { border-bottom-color: var(--accent); }
+  .silo-link a .ico {
+    display: inline-flex;
+    font-size: 14px;
+    transition: transform 0.2s;
+  }
+  .silo-link a:hover { background: rgba(2,132,130,0.13); transform: translateY(-1px); }
+  .silo-link a:hover .ico { transform: translateX(3px); }
 
   /* ══════════════ FORWARD LINK ══════════════ */
   .fwdlink-wrap {
@@ -572,6 +587,85 @@
     color: var(--mid-text);
   }
 
+  /* ══════════════ NEXT-STEP CTA ══════════════ */
+  .next-cta {
+    background: linear-gradient(135deg, #002F2E 0%, #014A49 100%);
+    border-radius: 12px;
+    padding: 38px 42px;
+    position: relative;
+    overflow: hidden;
+  }
+  .next-cta::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(2,132,130,0.035) 3px, rgba(2,132,130,0.035) 4px);
+    pointer-events: none;
+  }
+  .next-cta::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 55%; height: 100%;
+    background: radial-gradient(ellipse at 90% 30%, rgba(202,200,13,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .next-cta-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .next-cta-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 36px;
+    position: relative;
+    z-index: 1;
+  }
+  .next-cta-text { flex: 1; min-width: 0; }
+  .next-cta-text h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #FAF8F2;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  .next-cta-text p {
+    font-size: 14.5px;
+    color: rgba(244,241,234,0.6);
+    line-height: 1.6;
+    max-width: 560px;
+  }
+  .next-cta-btn {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #002F2E;
+    background: var(--warm);
+    border-radius: 8px;
+    padding: 16px 28px;
+    text-decoration: none;
+    box-shadow: 0 4px 18px rgba(202,200,13,0.22);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .next-cta-btn .arw { font-size: 17px; transition: transform 0.2s; }
+  .next-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(202,200,13,0.34); }
+  .next-cta-btn:hover .arw { transform: translateX(4px); }
+
   /* ══════════════ FOOTER ══════════════ */
   .page-footer {
     background: var(--navy-deep);
@@ -599,6 +693,10 @@
     .hero-body { flex-direction: column; gap: 24px; }
     .hero-stats { width: 100%; }
     .rules-grid, .use-list, .provider-grid, .howto-steps, .silo-row { grid-template-columns: 1fr; }
+    .next-cta { padding: 28px 24px; }
+    .next-cta-main { flex-direction: column; align-items: flex-start; gap: 22px; }
+    .next-cta-btn { width: 100%; justify-content: center; }
+    .next-cta-text h3 { font-size: 20px; }
     .hero-eyes { display: none; }
   }
 </style>
@@ -811,15 +909,21 @@
         <p>Runs off its own instruction files and notes — chat memory doesn't surface here.</p>
       </div>
     </div>
-    <p class="silo-link"><a href="https://semantic.rationalroot.com/guide/">See how memory works across the three types of Claude &rarr;</a></p>
+    <p class="silo-link"><a href="https://semantic.rationalroot.com/guide/">See how memory works across the three types of Claude <span class="ico">&rarr;</span></a></p>
   </section>
 
-  <div class="fwdlink-wrap">
-    <a class="fwdlink" href="/context/value/">
-      <span>Capturing is good. Automatically surfacing it inside your agents is better.</span>
-      <span class="sub">Next &rarr;</span>
-    </a>
-  </div>
+  <section class="section tight">
+    <div class="next-cta">
+      <div class="next-cta-label">Next Step</div>
+      <div class="next-cta-main">
+        <div class="next-cta-text">
+          <h3>Capturing is good. Automatically surfacing it inside your agents is better.</h3>
+          <p>See how to wire your spoken thinking into a memory every agent can read — and why it's the difference between a habit and a system.</p>
+        </div>
+        <a class="next-cta-btn" href="/context/value/">Next <span class="arw">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
 
 </div>
 
