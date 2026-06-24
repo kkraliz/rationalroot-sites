@@ -467,6 +467,70 @@
   }
   .today-card h4 { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
   .today-card p { font-size: 14px; color: var(--mid-text); line-height: 1.6; }
+  .today-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .today-top .k { margin-bottom: 0; }
+  .today-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 4px;
+    white-space: nowrap;
+    position: relative;
+    z-index: 1;
+  }
+  .today-tag.stop { background: rgba(184,134,11,0.12); color: #8a6508; border: 1px solid rgba(184,134,11,0.3); }
+  .today-tag.go { background: rgba(202,200,13,0.16); color: var(--warm); border: 1px solid rgba(202,200,13,0.4); }
+  .today-note {
+    margin-top: 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+    line-height: 1.5;
+    display: flex;
+    gap: 7px;
+    align-items: flex-start;
+    position: relative;
+    z-index: 1;
+  }
+  .today-note .mk { flex-shrink: 0; }
+  /* Rough version = muted stop-gap */
+  .today-card.stopgap {
+    background: rgba(130,136,131,0.05);
+    border: 1px dashed rgba(130,136,131,0.45);
+    box-shadow: none;
+  }
+  .today-card.stopgap .k { color: var(--steel); }
+  .today-card.stopgap h4 { color: var(--mid-text); }
+  .today-card.stopgap .today-note { color: var(--steel); }
+  /* Polished version = the solution */
+  .today-card.solution {
+    background: linear-gradient(135deg, #002F2E 0%, #014A49 100%);
+    border: 1px solid rgba(202,200,13,0.28);
+    box-shadow: var(--shadow-hover);
+    position: relative;
+    overflow: hidden;
+  }
+  .today-card.solution::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 60%; height: 100%;
+    background: radial-gradient(ellipse at 90% 20%, rgba(202,200,13,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .today-card.solution .k { color: var(--warm); position: relative; z-index: 1; }
+  .today-card.solution h4 { color: #FAF8F2; position: relative; z-index: 1; }
+  .today-card.solution p { color: rgba(244,241,234,0.72); position: relative; z-index: 1; }
+  .today-card.solution .today-note { color: rgba(202,200,13,0.85); }
 
   /* ══════════════ CTA ══════════════ */
   .cta-box {
@@ -713,18 +777,20 @@
   <!-- START TODAY -->
   <section class="section">
     <span class="section-label">Start Today</span>
-    <h2 class="section-title">You don't need the app to begin</h2>
-    <p class="section-subtitle">The pattern works right now with tools you already have. Run the rough version this week; graduate to a purpose-built one when it earns its place.</p>
+    <h2 class="section-title">You can start today — but it's a stop-gap</h2>
+    <p class="section-subtitle">The rough version gets you capturing in seconds with tools you already have. It just can't carry that thinking across to your other agents on its own — for that, it has to be piped in.</p>
     <div class="today-grid">
-      <div class="today-card">
-        <div class="k">Rough version · today</div>
+      <div class="today-card stopgap">
+        <div class="today-top"><span class="k">Rough version</span><span class="today-tag stop">Stop-gap</span></div>
         <h4>Voice + an AI that remembers</h4>
-        <p>Speak your thoughts into Claude or ChatGPT's voice mode, or a voice note, and let your AI assistant keep and resurface them. Zero setup, value on day one.</p>
+        <p>Speak into Claude or ChatGPT's voice mode and let its memory hold the thread. Free and instant — but the context stays locked inside that one app.</p>
+        <div class="today-note"><span class="mk">&#9888;</span><span>On its own it won't reach your other agents — there's no clean way to bring it across.</span></div>
       </div>
-      <div class="today-card">
-        <div class="k">Polished version · ~1 hour</div>
-        <h4>A capture loop wired for you</h4>
-        <p>A custom, personal, one-of-a-kind Context Capture app on your home screen — talk, auto-transcribe, store, and make it queryable by every AI you use. Built with Rational Root and live in about an hour.</p>
+      <div class="today-card solution">
+        <div class="today-top"><span class="k">Polished version · ~1 hour</span><span class="today-tag go">The solution</span></div>
+        <h4>A capture loop wired to your own MCP</h4>
+        <p>A custom, personal Context Capture app that auto-transcribes every note and pipes it to your own MCP — so Claude, Cowork, Code, and the rest can all read it. Built with Rational Root, live in about an hour.</p>
+        <div class="today-note"><span class="mk">&#10003;</span><span>Your context, surfaced inside every agent you use.</span></div>
       </div>
     </div>
   </section>
