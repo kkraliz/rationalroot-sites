@@ -737,6 +737,181 @@
     line-height: 1.7;
   }
 
+  /* ══════════════ "NEW" MARKERS ══════════════ */
+  @keyframes newGlowPill {
+    0%, 100% { box-shadow: 0 0 4px rgba(202,200,13,0.35); }
+    50% { box-shadow: 0 0 12px rgba(202,200,13,0.65), 0 0 20px rgba(202,200,13,0.25); }
+  }
+  .new-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #7C7A00;
+    background: var(--warm-light);
+    border: 1px solid rgba(202,200,13,0.5);
+    border-radius: 11px;
+    padding: 1px 8px 1px 6px;
+    vertical-align: middle;
+    margin-left: 8px;
+    animation: newGlowPill 2.4s ease-in-out infinite;
+  }
+  .new-tag::before { content: '\2726'; font-size: 9px; color: #B5B30C; line-height: 1; }
+
+  @keyframes newGlowStar {
+    0%, 100% { opacity: 0.75; filter: drop-shadow(0 0 2px rgba(202,200,13,0.5)); }
+    50% { opacity: 1; filter: drop-shadow(0 0 6px rgba(202,200,13,0.95)); }
+  }
+  .new-star {
+    color: #B5B30C;
+    font-size: 11px;
+    margin-left: 5px;
+    animation: newGlowStar 2.4s ease-in-out infinite;
+  }
+
+  /* ══════════════ DIAGRAM 3: CLAUDE.md HIERARCHY ══════════════ */
+  .hierarchy { margin-top: 14px; }
+
+  /* ── Enterprise: offset & downplayed ── */
+  .hier-ent-wrap { margin-bottom: 4px; }
+  .hier-enterprise {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: repeating-linear-gradient(45deg, transparent, transparent 7px, rgba(130,136,131,0.04) 7px, rgba(130,136,131,0.04) 8px);
+    border: 1px dashed var(--steel);
+    border-radius: 6px;
+    padding: 10px 16px;
+    max-width: 440px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .hier-enterprise:hover { opacity: 1; }
+  .ent-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--steel); flex-shrink: 0;
+  }
+  .ent-body { display: flex; flex-direction: column; gap: 2px; }
+  .ent-body code.inline { font-size: 11px; }
+  .ent-note { font-size: 11px; color: var(--steel); font-style: italic; line-height: 1.4; }
+  .ent-drop {
+    display: flex; align-items: center; gap: 9px;
+    margin: 2px 0 2px 44px;
+  }
+  .ent-drop-line {
+    width: 0; height: 20px;
+    border-left: 2px dashed var(--steel);
+    opacity: 0.5;
+  }
+  .ent-drop-label {
+    font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--steel); opacity: 0.65;
+  }
+
+  /* ── Main row: three common layers, full width ── */
+  .hier-row { display: flex; align-items: stretch; gap: 0; }
+  .hier-card {
+    flex: 1; min-width: 0;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--accent);
+    border-radius: 6px;
+    padding: 22px;
+    box-shadow: var(--shadow);
+    display: flex; flex-direction: column;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .hier-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+  .hier-card.user { border-top-color: var(--cowork-color); }
+  .hier-card.project { border-top-color: var(--accent); }
+  .hier-card.subdir { border-top-color: var(--code-color); }
+  .hier-card .hier-scope {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .hier-card.user .hier-scope { color: var(--cowork-color); }
+  .hier-card.project .hier-scope { color: var(--accent); }
+  .hier-card.subdir .hier-scope { color: var(--code-color); }
+  .hier-card code.inline { align-self: flex-start; margin-bottom: 12px; }
+  .hier-card p { font-size: 12.5px; color: var(--mid-text); line-height: 1.55; flex: 1; }
+  .hier-card .hier-rank {
+    font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--steel); opacity: 0.7; margin-top: 14px;
+  }
+
+  /* ── Connectors: highlighted ── */
+  .hier-conn { flex-shrink: 0; display: flex; align-items: center; justify-content: center; padding: 0 10px; }
+  .conn-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent), var(--code-color));
+    padding: 7px 13px; border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(2,132,130,0.45);
+    white-space: nowrap;
+  }
+  .conn-arrow { font-size: 10px; line-height: 1; }
+  .hier-resolve { display: flex; justify-content: center; padding: 16px 0; }
+  .resolve-pill {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--navy-deep);
+    background: linear-gradient(135deg, var(--warm), #E3E15B);
+    padding: 10px 22px; border-radius: 22px;
+    box-shadow: 0 3px 16px rgba(202,200,13,0.5);
+  }
+  .resolve-pill .conn-arrow { font-size: 13px; }
+
+  .hier-result {
+    background: linear-gradient(135deg, var(--navy-deep), var(--navy), var(--navy-mid));
+    border-radius: 8px;
+    padding: 22px 24px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,47,46,0.25);
+    margin-top: 4px;
+  }
+  .hier-result::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--warm), var(--accent));
+  }
+  .hier-result-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 8px;
+  }
+  .hier-result h4 { font-size: 17px; font-weight: 700; color: #FAF8F2; margin-bottom: 6px; }
+  .hier-result p { font-size: 13px; color: rgba(244,241,234,0.6); line-height: 1.6; }
+  .hier-result p strong { color: rgba(244,241,234,0.85); }
+  .hier-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--warm-light);
+    border: 1px solid rgba(202,200,13,0.3);
+    border-left: 4px solid var(--warm);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-top: 22px;
+  }
+  .hier-note .hier-note-icon { font-size: 16px; line-height: 1.3; flex-shrink: 0; }
+  .hier-note p { font-size: 13px; color: var(--mid-text); line-height: 1.6; }
+  .hier-note strong { color: var(--dark-text); }
+
   /* ══════════════ FOOTER ══════════════ */
   .page-footer {
     background: var(--navy);
@@ -761,6 +936,10 @@
     .hero-rule { margin: 16px 24px 0; }
     .memory-diagram { grid-template-columns: 1fr; }
     .claudemd-scope-grid { grid-template-columns: 1fr; }
+    .hier-row { flex-direction: column; }
+    .hier-conn { padding: 10px 0; }
+    .conn-arrow { transform: rotate(90deg); }
+    .hier-enterprise { max-width: 100%; }
   }
 </style>
 </head>
@@ -924,9 +1103,9 @@
         <li>Shell access (direct, not sandboxed)</li>
         <li>Git-aware context</li>
         <li>MCP servers, hooks, slash commands</li>
-        <li>No centralized "memory" feature</li>
+        <li>Auto memory — self-written notes across sessions <span class="new-star">&#10022;</span></li>
       </ul>
-      <div class="silo-badge">CLAUDE.md-driven</div>
+      <div class="silo-badge">Auto memory + CLAUDE.md</div>
     </div>
 
   </div>
@@ -966,12 +1145,12 @@
           <tr><th>Feature</th><th>Chat</th><th>Cowork</th><th>Code</th></tr>
         </thead>
         <tbody>
-          <tr><td>Persistent memory</td><td><span class="check yes">&#10003;</span></td><td><span class="check yes">&#10003;</span></td><td><span class="check no">&#10005;</span></td></tr>
-          <tr><td>Memory scope</td><td>User-wide</td><td>Per-space</td><td>N/A</td></tr>
-          <tr><td>Memory format</td><td>Internal DB</td><td>Markdown files</td><td>N/A</td></tr>
+          <tr><td>Persistent memory</td><td><span class="check yes">&#10003;</span></td><td><span class="check yes">&#10003;</span></td><td><span class="check yes">&#10003;</span><span class="new-star">&#10022;</span></td></tr>
+          <tr><td>Memory scope</td><td>User-wide</td><td>Per-space</td><td>User + project <span class="new-star">&#10022;</span></td></tr>
+          <tr><td>Memory format</td><td>Internal DB</td><td>Markdown files</td><td>Markdown files <span class="new-star">&#10022;</span></td></tr>
           <tr><td>CLAUDE.md</td><td><span class="check no">&#10005;</span></td><td><span class="check yes">&#10003;</span></td><td><span class="check yes">&#10003;</span></td></tr>
           <tr><td>File system access</td><td><span class="check no">&#10005;</span></td><td><span class="check yes">&#10003;</span></td><td><span class="check yes">&#10003;</span></td></tr>
-          <tr><td>Cross-session recall</td><td><span class="check yes">&#10003;</span></td><td><span class="check yes">&#10003;</span></td><td><span class="check partial">~</span></td></tr>
+          <tr><td>Cross-session recall</td><td><span class="check yes">&#10003;</span></td><td><span class="check yes">&#10003;</span></td><td><span class="check yes">&#10003;</span><span class="new-star">&#10022;</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -1014,7 +1193,7 @@
         <div class="scope-item code-scope">
           <div class="scope-label">Code</div>
           <div class="scope-status" style="color: var(--accent);">Primary mechanism</div>
-          <div class="scope-detail">CLAUDE.md is the core way to persist instructions. Supports project, user, and enterprise levels.</div>
+          <div class="scope-detail">CLAUDE.md is the core way to persist instructions, layered across project, user, and enterprise levels. Now paired with <strong>auto memory</strong> — notes Claude writes itself across sessions. <span class="new-star">&#10022;</span></div>
         </div>
       </div>
     </div>
@@ -1036,10 +1215,93 @@
   <div class="insight-box">
     <h4>Key Takeaway</h4>
     <p>
-      There is no single unified memory across Chat, Cowork, and Code. Each operates in its own context silo.
+      There is no single unified memory across Chat, Cowork, and Code. Each operates in its own context silo —
+      and each now has its own persistence: Chat's user memory, Cowork's per-space files, and Code's auto memory plus CLAUDE.md. <span class="new-star">&#10022;</span>
       The main bridge is <strong>importing a Chat project into Cowork</strong> — this brings Chat's knowledge into Cowork's context as read-only data.
-      CLAUDE.md is the closest thing to a shared layer, but it only works in Cowork and Code (not Chat).
+      CLAUDE.md is the closest thing to a shared instruction layer, but it only works in Cowork and Code (not Chat).
       If you want continuity across modes, the project import is the mechanism to use.
+    </p>
+  </div>
+</section>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════ DIAGRAM 3: CLAUDE.md HIERARCHY ════════════════════ -->
+<div class="container">
+<section class="section">
+  <div class="section-label">Diagram 3</div>
+  <h2 class="section-title">The CLAUDE.md Hierarchy<span class="new-tag">New</span></h2>
+  <p class="section-subtitle">A common misconception: that Claude Code reads one CLAUDE.md. It actually <strong>merges several</strong>, from the broadest org-wide rules down to the most specific folder. Later (more specific) layers stack on top of earlier ones — they add to and can override what came before.</p>
+
+  <div class="hierarchy">
+
+    <!-- Enterprise: offset & downplayed -->
+    <div class="hier-ent-wrap">
+      <div class="hier-enterprise">
+        <div class="ent-label">Enterprise</div>
+        <div class="ent-body">
+          <code class="inline">Managed policy</code>
+          <span class="ent-note">Pushed by admins · rare in most setups, but overrides everything when set</span>
+        </div>
+      </div>
+      <div class="ent-drop">
+        <span class="ent-drop-line"></span>
+        <span class="ent-drop-label">if present, sits on top of the stack below</span>
+      </div>
+    </div>
+
+    <!-- The three common layers -->
+    <div class="hier-row">
+      <div class="hier-card user">
+        <div class="hier-scope">User</div>
+        <code class="inline">~/.claude/CLAUDE.md</code>
+        <p>Your personal preferences — applied to every project you open on this machine.</p>
+        <div class="hier-rank">Broadest</div>
+      </div>
+
+      <div class="hier-conn"><span class="conn-pill">Merges <span class="conn-arrow">&#9654;</span></span></div>
+
+      <div class="hier-card project">
+        <div class="hier-scope">Project</div>
+        <code class="inline">./CLAUDE.md</code>
+        <p>Instructions for this specific repo, at its root. The one most people mean by "the CLAUDE.md."</p>
+        <div class="hier-rank">This repo</div>
+      </div>
+
+      <div class="hier-conn"><span class="conn-pill">Merges <span class="conn-arrow">&#9654;</span></span></div>
+
+      <div class="hier-card subdir">
+        <div class="hier-scope">Subfolder</div>
+        <code class="inline">src/&hellip;/CLAUDE.md</code>
+        <p>Optional nested files that layer on when Claude is working inside that folder.</p>
+        <div class="hier-rank">Most specific</div>
+      </div>
+    </div>
+
+    <!-- Resolves into -->
+    <div class="hier-resolve"><span class="resolve-pill">Resolves into <span class="conn-arrow">&#9660;</span></span></div>
+
+    <!-- Result -->
+    <div class="hier-result">
+      <div class="hier-result-label">Loaded at session start</div>
+      <h4>One effective set of instructions</h4>
+      <p>Claude Code reads <strong>all applicable layers</strong> and merges them into the context for the session. More specific layers win where they conflict — but nothing is discarded.</p>
+    </div>
+
+  </div>
+
+  <div class="hier-note">
+    <span class="hier-note-icon">&#129504;</span>
+    <p><strong>Plus auto memory.</strong> Alongside these files, Claude Code now loads its own <strong>auto memory</strong> <span class="new-star">&#10022;</span> — notes it writes itself across sessions (build commands, preferences, architecture notes). CLAUDE.md is what <em>you</em> tell it; auto memory is what it learns on its own.</p>
+  </div>
+
+  <div class="insight-box">
+    <h4>Cowork vs. Code</h4>
+    <p>
+      Cowork reads a <strong>project-level CLAUDE.md</strong> from its mounted folder — so each space has its own, much like a project layer.
+      Claude Code adds the layers above and below it (user, enterprise, nested subfolders), then merges the stack.
+      Same file convention, different breadth: Cowork is project-scoped; Code is hierarchical.
     </p>
   </div>
 </section>
